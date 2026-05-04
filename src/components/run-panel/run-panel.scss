@@ -16,7 +16,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             z-index: var(--zindex-drawer);
             height: calc(100% - env(safe-area-inset-bottom, 0));
             padding-bottom: env(safe-area-inset-bottom, 0);
@@ -165,7 +165,7 @@
                 height: var(--drawer-content-height-mobile);
                 position: fixed;
                 bottom: 15.7rem;
-                width: 100vw;
+                width: 100%;
                 padding: 0.4rem 0;
 
                 /* Fix for iOS devices to prevent tab content overlap with bottom controls */
