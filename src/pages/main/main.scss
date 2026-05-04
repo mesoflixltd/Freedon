@@ -44,6 +44,7 @@
         border: none;
         max-width: 100%;
         width: 100%;
+        overflow-y: auto;
 
         &.no-scroll {
             overflow: hidden;
@@ -231,10 +232,10 @@
     &__run-strategy-wrapper {
         inset-inline-end: 1.6rem;
         top: 1.6rem;
-        z-index: 2;
+        z-index: 99;
 
         @include desktop-screen {
-            position: absolute;
+            position: fixed;
         }
 
         .animation {
@@ -345,9 +346,7 @@
             }
         }
 
-        &--expanded {
-            width: calc(100vw - 39.8rem);
-        }
+        // Removed width reduction to keep it as an overlay
 
         &--modal {
             width: 40rem;

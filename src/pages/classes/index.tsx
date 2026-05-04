@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/hooks/useStore';
 import { load } from '@/external/bot-skeleton';
@@ -17,8 +17,42 @@ const CLASSES_DATA = [
     },
 ];
 
+const ClassCard = ({ item, handleLoadBot }: { item: typeof CLASSES_DATA[0], handleLoadBot: (name: string) => void }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    return (
+        <div className='class-card'>
+            <div className='video-container'>
+                <iframe
+                    src={item.youtubeUrl}
+                    title={item.title}
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen
+                />
+            </div>
+            <div className='class-info'>
+                <h3>{item.title}</h3>
+                {isExpanded && <p>{item.description}</p>}
+                <button 
+                    className='read-more-btn' 
+                    onClick={() => setIsExpanded(!isExpanded)}
+                >
+                    {isExpanded ? localize('Read less') : localize('Read more')}
+                </button>
+                <button 
+                    className='bot-button' 
+                    onClick={() => handleLoadBot(item.botName)}
+                >
+                    <LabelPairedPlayCaptionBoldIcon />
+                    {localize('Load {{botName}}', { botName: item.botName })}
+                </button>
+            </div>
+        </div>
+    );
+};
+
 const Classes = observer(() => {
-    const { dashboard, ui } = useStore();
+    const { dashboard } = useStore();
     const { setActiveTab } = dashboard;
 
     const handleLoadBot = async (botName: string) => {
@@ -33,7 +67,6 @@ const Classes = observer(() => {
             setActiveTab(DBOT_TABS.BOT_BUILDER);
 
             // Load the bot into the workspace
-            // We use a small timeout to ensure the workspace is ready if it wasn't active
             setTimeout(async () => {
                 await load({
                     block_string: xmlText,
@@ -44,14 +77,10 @@ const Classes = observer(() => {
                     strategy_id: null,
                     showIncompatibleStrategyDialog: false,
                 });
-                
-                // Show success message if needed (optional)
-                console.log(`Bot ${botName} loaded successfully`);
             }, 100);
 
         } catch (error) {
             console.error('Failed to load bot:', error);
-            // You might want to show a notification to the user here
         }
     };
 
@@ -59,32 +88,12 @@ const Classes = observer(() => {
         <div className='classes-page'>
             <div className='classes-header'>
                 <h1>{localize('Mesoflix Classes')}</h1>
-                <p>{localize('Watch and learn how to use our elite trading bots. Master the strategies and start trading like a pro.')}</p>
+                <p>{localize('Master our elite trading strategies.')}</p>
             </div>
 
             <div className='classes-grid'>
                 {CLASSES_DATA.map((item) => (
-                    <div key={item.id} className='class-card'>
-                        <div className='video-container'>
-                            <iframe
-                                src={item.youtubeUrl}
-                                title={item.title}
-                                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                                allowFullScreen
-                            />
-                        </div>
-                        <div className='class-info'>
-                            <h3>{item.title}</h3>
-                            <p>{item.description}</p>
-                            <button 
-                                className='bot-button' 
-                                onClick={() => handleLoadBot(item.botName)}
-                            >
-                                <LabelPairedPlayCaptionBoldIcon />
-                                {localize('Load {{botName}}', { botName: item.botName })}
-                            </button>
-                        </div>
-                    </div>
+                    <ClassCard key={item.id} item={item} handleLoadBot={handleLoadBot} />
                 ))}
             </div>
         </div>

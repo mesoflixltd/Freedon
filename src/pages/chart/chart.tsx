@@ -88,7 +88,6 @@ const Chart = observer(({ show_digits_stats }: { show_digits_stats: boolean }) =
     return (
         <div
             className={classNames('dashboard__chart-wrapper', {
-                'dashboard__chart-wrapper--expanded': is_drawer_open && isDesktop,
                 'dashboard__chart-wrapper--modal': is_chart_modal_visible && isDesktop,
                 'dashboard__chart-wrapper--safari': isSafari,
             })}
