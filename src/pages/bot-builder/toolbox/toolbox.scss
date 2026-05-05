@@ -7,24 +7,9 @@
     inset-inline-start: 0;
     width: 23.6rem;
     height: 100%;
-    padding: 0;
+    padding: 0.8rem;
     background: var(--general-main-1);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--general-section-1);
-
-    @include mobile-or-tablet-screen {
-        width: 100%;
-        height: auto;
-        position: fixed;
-        bottom: 0;
-        top: auto;
-        flex-direction: row;
-        padding: 0.4rem;
-        background: var(--general-main-2);
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    }
+    z-index: 1;
 
     $toolbox: &;
     $category-text-spacing: 10px;
@@ -101,18 +86,11 @@
     }
 
     &__content-wrapper {
-        height: auto;
-        flex: 1;
-        overflow-y: auto;
-        display: none;
+        height: 0;
+    }
 
-        &.active {
-            display: block;
-        }
-
-        @include mobile-or-tablet-screen {
-            display: none !important;
-        }
+    &__content-wrapper.active {
+        height: 100%;
     }
 
     &__header {
@@ -125,28 +103,15 @@
         background-color: var(--general-section-5);
     }
 
-    &__item {
+    &__buttons {
         display: flex;
-        flex-direction: row;
-        color: var(--text-general);
-        user-select: none; // Prevent text selection on rapid clicks
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-bottom: 1.6rem;
 
-        &:hover {
-            background-color: var(--general-hover);
-            color: var(--text-prominent);
-        }
-    }
-
-    &__category-arrow {
-        width: 16px;
-        height: 16px;
-        margin-right: $category-text-spacing;
-        transition: transform 0.3s ease;
-        position: relative;
-
-        &--active {
-            transform: rotate(180deg);
-            top: 0.5rem;
+        .toolbar__btn {
+            width: 100% !important;
+            justify-content: flex-start;
         }
     }
 
@@ -196,88 +161,4 @@
             opacity: 0.8;
         }
     }
-
-    &__footer {
-        margin-top: auto;
-        padding: 0.8rem;
-        background: var(--general-main-1);
-        border-top: 1px solid var(--general-section-1);
-
-        @include mobile-or-tablet-screen {
-            margin-top: 0;
-            padding: 0;
-            background: transparent;
-            border-top: none;
-            width: 100%;
-        }
-    }
-
-    &__buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-
-        @include mobile-or-tablet-screen {
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            gap: 0.4rem;
-        }
-
-        .toolbar__btn {
-            width: 100% !important;
-            justify-content: flex-start;
-            
-            @include mobile-or-tablet-screen {
-                width: auto !important;
-                flex: 1;
-                max-width: 16rem;
-                height: 3.6rem !important;
-                font-size: 1.2rem;
-            }
-        }
-    }
-
-    &__copy-trade {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.2rem;
-        background: var(--general-section-1);
-        border-radius: 8px;
-        min-height: 4rem;
-
-        @include mobile-or-tablet-screen {
-            flex: 1;
-            padding: 0.4rem 0.8rem;
-            max-width: 16rem;
-            height: 3.6rem;
-        }
-
-        &-label {
-            color: var(--text-prominent);
-            margin-right: 0.8rem;
-        }
-    }
-
-    @include mobile-or-tablet-screen {
-        &--mobile {
-            .db-toolbox__header, 
-            .db-toolbox__container, 
-            .db-toolbox__search, 
-            .db-toolbox__category-menu {
-                display: none !important;
-            }
-        }
-    }
-}
-
-.loader {
-    border: 1px solid var(--general-active);
-    border-top: 1px solid var(--brand-secondary);
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    animation: spin 1s linear infinite;
 }
