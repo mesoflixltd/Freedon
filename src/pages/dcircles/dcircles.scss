@@ -309,14 +309,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       font-weight: 800;
       font-family: 'Roboto Mono', monospace;
       color: var(--text-prominent);  // explicit — visible on both light & dark
     }
 
     &__pct-pill {
-      font-size: 0.72rem;
+      font-size: 1rem;
       font-weight: 700;
       font-family: 'Roboto Mono', monospace;
       color: var(--text-less-prominent);
@@ -470,7 +470,8 @@
 
     .dcircles-grid { grid-template-columns: repeat(5, 1fr); gap: 0.5rem; padding: 0.8rem; }
     .dcircles-card__ring { width: 48px; height: 48px; }
-    .dcircles-card__num  { font-size: 1.1rem; }
+    .dcircles-card__num  { font-size: 1.4rem; }
+    .dcircles-card__pct-pill { font-size: 0.85rem; }
 
     .dcircles-analysis-block__bars { flex-direction: column; }
   }
