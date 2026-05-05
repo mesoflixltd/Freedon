@@ -246,7 +246,7 @@
     &--warm,
     &--neutral,
     &--cold {
-      --ring-color: rgba(255, 255, 255, 0.15);
+      --ring-color: rgba(127, 127, 127, 0.2); // Uniform, non-shouting color
     }
 
     &--highest {
@@ -316,8 +316,8 @@
     }
 
     &__pct-pill {
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 1.3rem;
+      font-weight: 800;
       font-family: 'Roboto Mono', monospace;
       color: var(--text-less-prominent);
     }
@@ -471,7 +471,7 @@
     .dcircles-grid { grid-template-columns: repeat(5, 1fr); gap: 0.5rem; padding: 0.8rem; }
     .dcircles-card__ring { width: 48px; height: 48px; }
     .dcircles-card__num  { font-size: 1.4rem; }
-    .dcircles-card__pct-pill { font-size: 0.85rem; }
+    .dcircles-card__pct-pill { font-size: 1.1rem; }
 
     .dcircles-analysis-block__bars { flex-direction: column; }
   }

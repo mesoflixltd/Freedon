@@ -158,7 +158,8 @@ const DCircles = observer(() => {
                     LOG.info(`active_symbols received — ${raw.length} total items`);
 
                     if (raw.length > 0) {
-                        LOG.info('First symbol item (to verify field names):', raw[0]);
+                        LOG.info('First symbol item keys:', Object.keys(raw[0]));
+                        LOG.info('First symbol item sample:', raw[0]);
                     } else {
                         LOG.warn('active_symbols returned EMPTY array — markets will not load from API; using fallback list');
                         return;
@@ -168,9 +169,9 @@ const DCircles = observer(() => {
                     const normalise = (item: any): TSymbol | null => {
                         // Try multiple possible field names
                         const sym: string =
-                            item.symbol ?? item.underlying ?? item.code ?? item.id ?? '';
+                            item.symbol ?? item.underlying ?? item.code ?? item.id ?? item.underlying_symbol ?? '';
                         const name: string =
-                            item.display_name ?? item.name ?? item.description ?? item.verbose_name ?? sym;
+                            item.display_name ?? item.name ?? item.description ?? item.verbose_name ?? item.display_underlying ?? sym;
                         if (!sym) return null;
                         return { symbol: sym, display_name: name };
                     };

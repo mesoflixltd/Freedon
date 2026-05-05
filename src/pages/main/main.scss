@@ -8,24 +8,7 @@
     }
 }
 
-.tabs-shadow {
-    position: absolute;
-    top: 8px;
-    height: 40px;
-    width: 64px;
-    z-index: 1;
-    pointer-events: none;
 
-    &--left {
-        left: 0;
-        background: linear-gradient(-88.07deg, transparent 1.63%, var(--general-section-1) 50.02%);
-    }
-
-    &--right {
-        right: 0;
-        background: linear-gradient(88.07deg, transparent 1.63%, var(--general-section-1) 50.02%);
-    }
-}
 
 .main {
     display: flex;
@@ -119,6 +102,11 @@
 
                     &::-webkit-scrollbar {
                         display: none;
+                    }
+
+                    // Remove any scroll shadows/gradients
+                    &:before, &:after {
+                        display: none !important;
                     }
                 }
 
@@ -241,10 +229,11 @@
             transition: all 0.3s ease;
 
             &--minimized {
-                top: 10.2rem; // Align with the tabs row
-                right: 2.4rem;
-                inset-inline-end: 2.4rem;
+                top: 10.4rem; // Align exactly with the tabs row
+                right: 1.6rem;
+                inset-inline-end: 1.6rem;
                 z-index: 101;
+                width: auto !important;
             }
         }
 
