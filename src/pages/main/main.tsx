@@ -50,7 +50,8 @@ const DCircles = lazy(() => import('../dcircles'));
 const FreeBots = lazy(() => import('../freebots'));
 const AIHub = lazy(() => import('../ai-hub'));
 const Classes = lazy(() => import('../classes'));
-const RiskCalculator = lazy(() => import('../risk-calculator'));
+const TradingView = React.lazy(() => import(/* webpackChunkName: "trading-view" */ '../trading-view'));
+const RiskCalculator = React.lazy(() => import(/* webpackChunkName: "risk-calculator" */ '../risk-calculator'));
 const Tutorial = lazy(() => import('../tutorials'));
 
 const AppWrapper = observer(() => {
@@ -458,6 +459,25 @@ const AppWrapper = observer(() => {
                                     fallback={<ChunkLoader message={localize('Please wait, loading Classes...')} />}
                                 >
                                     <Classes />
+                                </Suspense>
+                            </div>
+                            <div
+                                label={
+                                    <>
+                                        <LabelPairedObjectsColumnCaptionRegularIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='TradingView' />
+                                    </>
+                                }
+                                id='id-trading-view'
+                            >
+                                <Suspense
+                                    fallback={<ChunkLoader message={localize('Please wait, loading TradingView...')} />}
+                                >
+                                    <TradingView />
                                 </Suspense>
                             </div>
                             <div
