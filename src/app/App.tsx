@@ -10,6 +10,7 @@ import { useOAuthCallback } from '@/hooks/useOAuthCallback';
 import { StoreProvider } from '@/hooks/useStore';
 import { OAuthTokenExchangeService } from '@/services/oauth-token-exchange.service';
 import { initializeI18n, localize, TranslationProvider } from '@deriv-com/translations';
+import { copyTradingService } from '@/services/copy-trading.service';
 import CoreStoreProvider from './CoreStoreProvider';
 import './app-root.scss';
 

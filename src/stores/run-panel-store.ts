@@ -62,6 +62,8 @@ export default class RunPanelStore {
             toggleStatisticsInfoModal: action,
             setRunPanelMinimized: action,
             is_run_panel_minimized: observable,
+            is_copy_trading: observable,
+            setIsCopyTrading: action,
             setActiveTabIndex: action,
             onCloseDialog: action,
             stopMyBot: action,
@@ -98,6 +100,11 @@ export default class RunPanelStore {
         this.disposeReactionsFn = this.registerReactions();
         this.timer = null;
     }
+
+    setIsCopyTrading = (is_copy_trading: boolean) => {
+        this.is_copy_trading = is_copy_trading;
+        globalObserver.setState({ is_copy_trading });
+    };
 
     active_index = 0;
     contract_stage: TContractStage = contract_stages.NOT_RUNNING;

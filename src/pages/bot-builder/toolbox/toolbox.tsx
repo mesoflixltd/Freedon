@@ -14,7 +14,7 @@ import { ToolboxItems } from './toolbox-items';
 
 const Toolbox = observer(() => {
     const { isDesktop } = useDevice();
-    const { toolbox, flyout, quick_strategy } = useStore();
+    const { toolbox, flyout, quick_strategy, run_panel, client } = useStore();
     const {
         hasSubCategory,
         is_search_loading,
@@ -28,7 +28,8 @@ const Toolbox = observer(() => {
         sub_category_index,
         toolbox_dom,
     } = toolbox;
-
+    const { is_virtual } = client;
+    const { is_copy_trading, setIsCopyTrading } = run_panel;
     const { setFormVisibility } = quick_strategy;
     const { setVisibility, selected_category } = flyout;
 
@@ -51,13 +52,27 @@ const Toolbox = observer(() => {
     if (isDesktop) {
         return (
             <div className='db-toolbox' data-testid='dashboard__toolbox'>
-                <ToolbarButton
-                    popover_message={localize('Click here to start building your Deriv Bot.')}
-                    button_id='db-toolbar__get-started-button'
-                    button_classname='toolbar__btn toolbar__btn--icon toolbar__btn--start'
-                    buttonOnClick={handleQuickStrategyOpen}
-                    button_text={localize('Quick strategy')}
-                />
+                <div className='db-toolbox__buttons'>
+                    <ToolbarButton
+                        popover_message={localize('Click here to start building your Deriv Bot.')}
+                        button_id='db-toolbar__get-started-button'
+                        button_classname='toolbar__btn toolbar__btn--icon toolbar__btn--start'
+                        buttonOnClick={handleQuickStrategyOpen}
+                        button_text={localize('Quick strategy')}
+                    />
+                    {is_virtual && (
+                        <ToolbarButton
+                            popover_message={localize('Duplicate trades from Demo to Real in realtime.')}
+                            button_id='db-toolbar__copytrading-button'
+                            button_classname={classNames('toolbar__btn toolbar__btn--icon', {
+                                'toolbar__btn--stop': is_copy_trading,
+                                'toolbar__btn--start': !is_copy_trading,
+                            })}
+                            buttonOnClick={() => setIsCopyTrading(!is_copy_trading)}
+                            button_text={is_copy_trading ? localize('Stop Demo to Real') : localize('Start Demo to Real')}
+                        />
+                    )}
+                </div>
                 <div id='gtm-toolbox' className='db-toolbox__content'>
                     <div className='db-toolbox__header'>
                         <div

@@ -166,3 +166,47 @@
         margin: 0;
     }
 }
+
+.db-toolbox__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    width: 100%;
+
+    .toolbar__btn {
+        flex: 1;
+        width: auto !important;
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+}
+
+.toolbar__mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 0 0.8rem;
+
+    .toolbar__btn {
+        width: 100%;
+        margin-bottom: 0;
+    }
+}
+
+.toolbar__btn--stop {
+    background-color: var(--button-secondary-default) !important;
+    
+    &:hover {
+        background-color: var(--button-secondary-hover) !important;
+    }
+}
+
+.toolbar__btn--start {
+    background-color: var(--button-primary-default) !important;
+
+    &:hover {
+        background-color: var(--button-primary-hover) !important;
+    }
+}
