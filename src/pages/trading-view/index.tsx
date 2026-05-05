@@ -30,11 +30,21 @@ const AnalysisPanel = observer(() => {
 
         ws.onmessage = (msg) => {
             const data = JSON.parse(msg.data);
+            
+            if (data.error) {
+                console.warn('[TradingView Analysis] API Error:', data.error.message);
+                return;
+            }
+
             if (data.msg_type === 'active_symbols') {
-                const filtered = data.active_symbols
-                    .filter((s: any) => s.market === 'synthetic_index')
-                    .map((s: any) => ({ symbol: s.symbol, name: s.display_name }));
-                if (filtered.length > 0) setSymbols(filtered);
+                if (data.active_symbols && Array.isArray(data.active_symbols)) {
+                    const filtered = data.active_symbols
+                        .filter((s: any) => s.market === 'synthetic_index')
+                        .map((s: any) => ({ symbol: s.symbol, name: s.display_name }));
+                    if (filtered.length > 0) setSymbols(filtered);
+                } else {
+                    console.warn('[TradingView Analysis] No active symbols found in response');
+                }
             } else if (data.msg_type === 'history') {
                 const prices = data.history.prices.map(Number);
                 setTicks(prices);
