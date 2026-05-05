@@ -272,7 +272,12 @@
                     background: rgba(0, 0, 0, 0.3);
                     border-radius: 1rem;
                     overflow: hidden;
-                    .fill { height: 100%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+                    .fill { 
+                        height: 100%; 
+                        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                        &.rise { background: linear-gradient(90deg, #10b981, #34d399); }
+                        &.fall { background: linear-gradient(90deg, #ef4444, #f87171); }
+                    }
                 }
             }
         }
@@ -302,7 +307,21 @@
                     .pct { font-size: 3.2rem; font-weight: 900; color: #fff; }
                     .txt { font-size: 1.1rem; font-weight: 800; color: #94a3b8; letter-spacing: 0.1rem; }
                 }
-                svg circle.bg { stroke: rgba(255, 255, 255, 0.05); }
+                svg circle.bg { 
+                    stroke: rgba(255, 255, 255, 0.05); 
+                    fill: transparent;
+                    stroke-width: 8;
+                }
+                svg circle.progress {
+                    fill: transparent;
+                    stroke-width: 8;
+                    stroke-linecap: round;
+                    transition: stroke-dasharray 1s ease-out, stroke 0.3s ease;
+                    transform: rotate(-90deg);
+                    transform-origin: center;
+                    &.rise { stroke: #10b981; }
+                    &.fall { stroke: #ef4444; }
+                }
             }
 
             .viz-info {
@@ -345,6 +364,16 @@
                     border: 1px solid rgba(255, 255, 255, 0.05);
                     .node-symbol { font-size: 1.8rem; font-weight: 900; }
                     .node-price { font-size: 1rem; font-weight: 700; color: #64748b; }
+                    &--rise { 
+                        color: #10b981; 
+                        border-color: rgba(16, 185, 129, 0.2);
+                        background: rgba(16, 185, 129, 0.05);
+                    }
+                    &--fall { 
+                        color: #ef4444; 
+                        border-color: rgba(239, 68, 68, 0.2);
+                        background: rgba(239, 68, 68, 0.05);
+                    }
                     &.latest { 
                         transform: scale(1.1); 
                         background: rgba(255, 255, 255, 0.08); 

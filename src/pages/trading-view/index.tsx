@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import './trading-view.scss';
 
@@ -6,14 +6,14 @@ import './trading-view.scss';
 const _0x4f2a = ['aHR0cHM6Ly9jaGFydHMuZGVyaXYuY29tL2Rlcml2']; 
 const getChartUrl = () => atob(_0x4f2a[0]);
 
-const WS_URL = 'wss://api.derivws.com/trading/v1/options/ws/public';
+const WS_URL = 'wss://api.derivws.com/trading/v1/options/ws/public?app_id=114343';
 
 const AnalysisPanel = observer(() => {
     const [selectedSymbol, setSelectedSymbol] = useState('R_10');
     const [symbols, setSymbols] = useState<{symbol: string, name: string}[]>([]);
     const [ticks, setTicks] = useState<number[]>([]);
     const [tickCount, setTickCount] = useState(100);
-    const [stats, setStats] = useState({ rise: 50, fall: 50, trend: 'Neutral', lastPrice: 0, streak: '' });
+    const [stats, setStats] = useState({ rise: 0, fall: 0, trend: 'Connecting...', lastPrice: 0, streak: '' });
     const [historyTape, setHistoryTape] = useState<{type: 'R'|'F', price: number}[]>([]);
     const wsRef = useRef<WebSocket | null>(null);
 
@@ -24,8 +24,23 @@ const AnalysisPanel = observer(() => {
         wsRef.current = ws;
 
         ws.onopen = () => {
-            ws.send(JSON.stringify({ active_symbols: 'brief', product_type: 'basic' }));
-            ws.send(JSON.stringify({ ticks_history: selectedSymbol, count: Math.max(tickCount, 100), end: 'latest', style: 'ticks', subscribe: 1 }));
+            console.log('[TradingView Analysis] Connected to WS');
+            // Use 'full' to ensure market/submarket fields are present for filtering
+            ws.send(JSON.stringify({ active_symbols: 'full' }));
+            
+            // Get initial history without subscription
+            ws.send(JSON.stringify({ 
+                ticks_history: selectedSymbol, 
+                count: Math.max(tickCount, 100), 
+                end: 'latest', 
+                style: 'ticks'
+            }));
+
+            // Subscribe to real-time ticks separately
+            ws.send(JSON.stringify({ 
+                ticks: selectedSymbol, 
+                subscribe: 1 
+            }));
         };
 
         ws.onmessage = (msg) => {
@@ -90,7 +105,10 @@ const AnalysisPanel = observer(() => {
             else fallCount++;
         }
         const total = riseCount + fallCount;
-        if (total === 0) return;
+        if (total === 0) {
+            setStats(prev => ({ ...prev, rise: 0, fall: 0, trend: 'No Data' }));
+            return;
+        }
         
         const risePct = Math.round((riseCount / total) * 100);
         const fallPct = 100 - risePct;
@@ -182,7 +200,9 @@ const AnalysisPanel = observer(() => {
                         </svg>
                         <div className="viz-content">
                             <span className="pct">{stats.rise > stats.fall ? stats.rise : stats.fall}%</span>
-                            <span className="txt">{stats.rise > stats.fall ? 'BULLISH' : 'BEARISH'}</span>
+                            <span className="txt">
+                                {stats.rise === stats.fall ? 'NEUTRAL' : (stats.rise > stats.fall ? 'BULLISH' : 'BEARISH')}
+                            </span>
                         </div>
                     </div>
                     <div className="viz-info">
