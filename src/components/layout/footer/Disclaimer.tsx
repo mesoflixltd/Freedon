@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslations } from '@deriv-com/translations';
 import { Tooltip } from '@deriv-com/ui';
-import { LegacyInfoIcon } from '@deriv/quill-icons/Legacy';
+import { LegacyInfoXsIcon } from '@deriv/quill-icons/Legacy';
 import Modal from '@/components/shared_ui/modal';
 import Text from '@/components/shared_ui/text';
 import Button from '@/components/shared_ui/button';
@@ -18,30 +18,30 @@ const Disclaimer = ({ isMobile }: IDisclaimerProps) => {
 
     const disclaimer_text = (
         <div className='disclaimer__content'>
-            <Text as='p' size='xs' line_height='s'>
+            <Text as='p' size='xs' lineHeight='s'>
                 {localize('Deriv offers complex derivatives, such as options and contracts for difference ("CFDs"). These products may not be suitable for all clients, and trading them puts you at risk.')}
             </Text>
             <br />
-            <Text as='p' size='xs' weight='bold' line_height='s'>
+            <Text as='p' size='xs' weight='bold' lineHeight='s'>
                 {localize('Please ensure you understand these risks:')}
             </Text>
             <ul style={{ paddingLeft: '20px', marginTop: '8px' }}>
                 <li>
-                    <Text size='xs' line_height='s'>{localize('You may lose some or all of your invested capital')}</Text>
+                    <Text size='xs' lineHeight='s'>{localize('You may lose some or all of your invested capital')}</Text>
                 </li>
                 <li>
-                    <Text size='xs' line_height='s'>{localize('Currency conversion affects your profit/loss')}</Text>
+                    <Text size='xs' lineHeight='s'>{localize('Currency conversion affects your profit/loss')}</Text>
                 </li>
                 <li>
-                    <Text size='xs' line_height='s'>{localize('Markets can be volatile and unpredictable')}</Text>
+                    <Text size='xs' lineHeight='s'>{localize('Markets can be volatile and unpredictable')}</Text>
                 </li>
             </ul>
             <br />
-            <Text as='p' size='xs' weight='bold' line_height='s'>
+            <Text as='p' size='xs' weight='bold' lineHeight='s'>
                 {localize('Important: Never trade with borrowed money or funds you cannot afford to lose.')}
             </Text>
             <br />
-            <Text as='p' size='xs' line_height='s'>
+            <Text as='p' size='xs' lineHeight='s'>
                 {localize('By continuing, you confirm that you understand these risks and that you are aware that Deriv does not provide investment advice.')}
             </Text>
         </div>
@@ -84,7 +84,7 @@ const Disclaimer = ({ isMobile }: IDisclaimerProps) => {
                 tooltipContent={localize('Disclaimer')}
                 onClick={toggleModal}
             >
-                <LegacyInfoIcon iconSize='sm' />
+                <LegacyInfoXsIcon iconSize='sm' />
             </Tooltip>
             <Modal
                 title={localize('Disclaimer')}
