@@ -16,6 +16,7 @@ import { useStore } from '@/hooks/useStore';
 import { Localize, localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 import ThemedScrollbars from '../shared_ui/themed-scrollbars';
+import Disclaimer from '../layout/footer/Disclaimer';
 
 type TStatisticsTile = {
     content: React.ElementType | string;
@@ -178,11 +179,13 @@ const DrawerFooter = ({ is_clear_stat_disabled, onClearStatClick }: TDrawerFoote
     </div>
 );
 
+
 const MobileDrawerFooter = () => {
     return (
         <div className='controls__section'>
             <div className='controls__buttons'>
                 <TradeAnimation className='controls__animation' should_show_overlay />
+                <Disclaimer isMobile />
             </div>
         </div>
     );

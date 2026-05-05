@@ -8,6 +8,7 @@ import { FILTERED_LANGUAGES } from '@/utils/languages';
 import { useTranslations } from '@deriv-com/translations';
 import { DesktopLanguagesModal } from '@deriv-com/ui';
 import ChangeTheme from './ChangeTheme';
+import Disclaimer from './Disclaimer';
 import FullScreen from './FullScreen';
 import LanguageSettings from './LanguageSettings';
 import LogoutFooter from './LogoutFooter';
@@ -45,6 +46,8 @@ const Footer = () => {
                 </>
             )}
             {/* [/AI] */}
+            <Disclaimer />
+            <div className='app-footer__vertical-line' />
             <ServerTime />
             <div className='app-footer__vertical-line' />
             <NetworkStatus />

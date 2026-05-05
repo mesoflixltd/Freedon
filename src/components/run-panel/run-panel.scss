@@ -241,9 +241,31 @@
     }
 
     &__animation {
-        width: 100%;
+        width: calc(100% - 90px);
         height: 4rem;
         border-radius: 0 4px 4px 0;
+    }
+}
+
+.disclaimer {
+    &__button-mobile {
+        width: 80px;
+        height: 4rem !important;
+        margin-left: 10px;
+        font-size: 1rem !important;
+        padding: 0 4px !important;
+
+        .dc-btn__text {
+            font-size: 1rem !important;
+        }
+    }
+
+    &__content {
+        li {
+            list-style-type: disc;
+            margin-bottom: 4px;
+            color: var(--text-general);
+        }
     }
 }
 
