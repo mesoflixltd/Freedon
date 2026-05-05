@@ -14,7 +14,6 @@ import { generateUrlWithRedirect } from '@/utils/url-redirect-utils';
 import { Buy, ProposalOpenContract } from '@deriv/api-types';
 import { TStores } from '@deriv/stores/types';
 import { localize } from '@deriv-com/translations';
-import { TBotSkeleton } from '@/types/dbot.types';
 import RootStore from './root-store';
 
 export type TContractState = {
@@ -24,6 +23,7 @@ export type TContractState = {
     id: string;
 };
 
+export default class RunPanelStore {
     root_store: RootStore;
     dbot: any;
     core: any;
