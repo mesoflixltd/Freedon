@@ -68,6 +68,51 @@
         display: flex;
         align-items: center;
         height: 40px;
+
+        &--minimized {
+            height: 44px; // Match tab height
+            
+            .animation__run-button, 
+            .animation__stop-button {
+                border-radius: 8px !important; // Make it look like a tab
+                height: 44px !important;
+                padding: 0 16px;
+                min-width: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .animation__minimize-icon {
+                height: 44px;
+                width: 44px;
+                border-radius: 8px;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    &__minimize-icon {
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-normal);
+        border-radius: 4px;
+        background: var(--general-main-1);
+        margin-right: 4px;
+        transition: all 0.2s;
+
+        &:hover {
+            background: var(--general-main-2);
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
     }
 
     &__overlay {

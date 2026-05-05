@@ -557,7 +557,9 @@ const AppWrapper = observer(() => {
                 </div>
             </div>
             <DesktopWrapper>
-                <div className='main__run-strategy-wrapper'>
+                <div className={classNames('main__run-strategy-wrapper', {
+                    'main__run-strategy-wrapper--minimized': run_panel.is_run_panel_minimized
+                })}>
                     <RunStrategy />
                     <RunPanel />
                 </div>

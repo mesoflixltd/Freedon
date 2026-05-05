@@ -238,6 +238,14 @@
         @include desktop-screen {
             position: fixed;
             top: 9rem; // Align with the start of the main content area
+            transition: all 0.3s ease;
+
+            &--minimized {
+                top: 10.2rem; // Align with the tabs row
+                right: 2.4rem;
+                inset-inline-end: 2.4rem;
+                z-index: 101;
+            }
         }
 
         .animation {

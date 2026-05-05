@@ -60,6 +60,8 @@ export default class RunPanelStore {
             onClearStatClick: action,
             clearStat: action,
             toggleStatisticsInfoModal: action,
+            setRunPanelMinimized: action,
+            is_run_panel_minimized: observable,
             setActiveTabIndex: action,
             onCloseDialog: action,
             stopMyBot: action,
@@ -108,6 +110,11 @@ export default class RunPanelStore {
     is_sell_requested = false;
     show_bot_stop_message = false;
     is_contract_buying_in_progress = false;
+    is_run_panel_minimized = false;
+
+    setRunPanelMinimized = (is_minimized: boolean) => {
+        this.is_run_panel_minimized = is_minimized;
+    };
 
     run_id = '';
     onOkButtonClick: (() => void) | null = null;
