@@ -53,6 +53,7 @@ const Classes = lazy(() => import('../classes'));
 const TradingView = React.lazy(() => import(/* webpackChunkName: "trading-view" */ '../trading-view'));
 const RiskCalculator = React.lazy(() => import(/* webpackChunkName: "risk-calculator" */ '../risk-calculator'));
 const Tutorial = lazy(() => import('../tutorials'));
+const Campaigns = lazy(() => import('../campaigns'));
 
 const AppWrapper = observer(() => {
     const { connectionStatus } = useApiBase();
@@ -85,7 +86,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'chart', 'dcircles', 'freebots', 'ai-hub', 'classes', 'trading-view', 'risk-calculator', 'tutorial'];
+    const hash = ['campaigns', 'dashboard', 'bot_builder', 'chart', 'dcircles', 'freebots', 'ai-hub', 'classes', 'trading-view', 'risk-calculator', 'tutorial'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -334,6 +335,25 @@ const AppWrapper = observer(() => {
                 >
                     <div>
                         <Tabs active_index={active_tab} className='main__tabs' onTabItemClick={handleTabChange} top history={window.history as any}>
+                            <div
+                                label={
+                                    <>
+                                        <LabelPairedPlayCaptionBoldIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='Campaigns' />
+                                    </>
+                                }
+                                id='id-campaigns'
+                            >
+                                <Suspense
+                                    fallback={<ChunkLoader message={localize('Please wait, loading Campaigns...')} />}
+                                >
+                                    <Campaigns />
+                                </Suspense>
+                            </div>
                             <div
                                 label={
                                     <>
