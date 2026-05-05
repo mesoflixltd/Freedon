@@ -483,7 +483,7 @@ class APIBase {
             // If token contains dots, it's an Ory access token.
             // Deriv's authorize command doesn't accept dots.
             // If we're connected via OTP, the socket is already pre-authorized.
-            if (token.includes('.')) {
+            if (typeof token === 'string' && token.includes('.')) {
                 console.log('[APIBase] Using Ory token, assuming pre-authorization via OTP');
                 // Simulate a successful auth response for state management
                 authResponse = {
