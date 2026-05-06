@@ -78,6 +78,7 @@ function useAuthWS() {
     const wsRef         = useRef<WebSocket | null>(null);
     const [wsUrl, setWsUrl]   = useState<string | null>(null);
     const [status, setStatus] = useState<'connecting' | 'connected' | 'error' | 'unauthenticated'>('connecting');
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
         let cancelled = false;
@@ -86,18 +87,27 @@ function useAuthWS() {
                 const authInfo = OAuthTokenExchangeService.getAuthInfo();
                 if (!authInfo?.access_token) {
                     setStatus('unauthenticated');
+                    setWsUrl('wss://api.derivws.com/trading/v1/options/ws/public');
+                    setIsAuthenticated(false);
                     return;
                 }
                 const url = await DerivWSAccountsService.getAuthenticatedWebSocketURL(authInfo.access_token);
-                if (!cancelled) setWsUrl(url);
+                if (!cancelled) {
+                    setWsUrl(url);
+                    setIsAuthenticated(true);
+                }
             } catch (e) {
-                if (!cancelled) setStatus('error');
+                if (!cancelled) {
+                    setWsUrl('wss://api.derivws.com/trading/v1/options/ws/public');
+                    setStatus('unauthenticated');
+                    setIsAuthenticated(false);
+                }
             }
         })();
         return () => { cancelled = true; };
     }, []);
 
-    return { wsRef, wsUrl, status, setStatus };
+    return { wsRef, wsUrl, status, setStatus, isAuthenticated };
 }
 
 const BulkTradingPage: React.FC = observer(() => {
@@ -148,7 +158,7 @@ const BulkTradingPage: React.FC = observer(() => {
     useEffect(() => { tickCountRef.current = tickCount; }, [tickCount]);
     useEffect(() => { localStorage.setItem('bulk_trade_type', tradeType); }, [tradeType]);
 
-    const { wsRef, wsUrl, status, setStatus } = useAuthWS();
+    const { wsRef, wsUrl, status, setStatus, isAuthenticated } = useAuthWS();
 
     const subscribe = useCallback((sym: string) => {
         const ws = wsRef.current;
@@ -354,6 +364,10 @@ const BulkTradingPage: React.FC = observer(() => {
 
     // ── Bulk Execution Logic ──
     const executeBulkTrade = async (side: string) => {
+        if (!isAuthenticated) {
+            alert('⚠️ Please log in to your Deriv account to run bulk trades!');
+            return;
+        }
         if (executing || status !== 'connected') return;
         setExecuting(true);
 
@@ -968,7 +982,11 @@ const BulkTradingPage: React.FC = observer(() => {
     );
 
     const renderStatusBanner = () => {
-        if (status === 'unauthenticated') return <div className='bt-banner bt-banner--warn'>⚠️ Not Logged In</div>;
+        if (!isAuthenticated) {
+            if (status === 'connected') return <div className='bt-banner bt-banner--warn'>⚠️ Guest Mode (Ticks Live)</div>;
+            if (status === 'connecting') return <div className='bt-banner bt-banner--info'>⟳ Connecting to Public Feed…</div>;
+            return <div className='bt-banner bt-banner--warn'>⚠️ Not Logged In</div>;
+        }
         if (status === 'error') return <div className='bt-banner bt-banner--error'>✖ Error</div>;
         if (status === 'connecting') return <div className='bt-banner bt-banner--info'>⟳ Connecting…</div>;
         return <div className='bt-banner bt-banner--ok'>● Real-Time Feed Active</div>;
