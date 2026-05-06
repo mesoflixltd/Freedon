@@ -52,6 +52,14 @@ $dc-cold:    #90caf9;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
+    @media (max-width: 992px) {
+        position: relative;
+        top: auto;
+        z-index: auto;
+        border-bottom: none;
+        padding-bottom: 0.2rem;
+    }
+
     .bt-inner {
         justify-content: space-between;
         flex-wrap: wrap;
@@ -668,14 +676,21 @@ $dc-cold:    #90caf9;
         display: flex;
         align-items: center;
         gap: 0.8rem;
-        padding: 0.8rem 1.6rem 0.2rem 1.6rem;
-        border-top: 1px solid var(--general-section-2);
+        padding: 0.8rem 1.6rem;
+        border-bottom: 1px solid var(--general-section-2);
         width: 100%;
         background: var(--general-main-1);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         &::-webkit-scrollbar { display: none; }
+
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
     }
 
     &__label {
@@ -705,20 +720,6 @@ $dc-cold:    #90caf9;
     font-size: 0.72rem !important;
     line-height: 2rem !important;
     flex-shrink: 0 !important;
-}
-
-.bt-config-panel {
-    .bt-mobile-ticker {
-        @media (max-width: 992px) {
-            display: flex;
-            margin: -0.4rem 0 0.8rem 0;
-            padding: 0.8rem 1.2rem;
-            background: var(--general-main-1);
-            border-radius: 1rem;
-            border: 1px solid var(--general-section-2);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-    }
 }
 
 /* ─── Animations ──────────────────────────────────────────────────────────── */

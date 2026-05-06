@@ -282,3 +282,20 @@
     from { opacity: 0; transform: translateY(15px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 992px) {
+    .aihub-page {
+        height: calc(100vh - 6rem) !important;
+        max-height: calc(100vh - 6rem) !important;
+        overflow: hidden !important;
+    }
+    .aihub-content {
+        height: 100% !important;
+        overflow: hidden !important;
+    }
+    .aihub-subpage {
+        height: 100% !important;
+        overflow-y: auto !important;
+        padding: 0 !important;
+    }
+}

@@ -551,8 +551,6 @@ const BulkTradingPage: React.FC = observer(() => {
                 </div>
             </div>
 
-            {renderMobileTicker()}
-
             <div className='bt-config-grid'>
                 {(tradeType === 'over_under' || tradeType === 'matches_differs') && (
                     <div className='bt-config-item'>
@@ -1087,8 +1085,8 @@ const BulkTradingPage: React.FC = observer(() => {
                         </div>
                     </div>
                 </div>
-                {renderMobileTicker()}
             </div>
+            {renderMobileTicker()}
 
             <div className='bt-type-tabs'>
                 <div className='bt-inner'>
