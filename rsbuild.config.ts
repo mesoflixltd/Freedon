@@ -89,6 +89,9 @@ export default defineConfig({
     },
     tools: {
         rspack: {
+            experiments: {
+                lazyCompilation: false,
+            },
             plugins: [],
             resolve: {},
             module: {

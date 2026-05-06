@@ -1,5 +1,15 @@
 [
     {
+        "id": "dollar-printer-bot",
+        "name": "$DollarprinterbotOrignal$ (1) (1).xml",
+        "description": "Aggressive capital growth algorithm with dynamic risk management.",
+        "category": "Scalping",
+        "icon": "chart",
+        "status": "Trending",
+        "accuracy": 85,
+        "isPremium": true
+    },
+    {
         "id": "deriv-wizard-1",
         "name": "Deriv wizard 1.xml",
         "description": "Institutional-grade trend-following protocol optimized for synthetic indices.",
@@ -17,16 +27,6 @@
         "icon": "ai",
         "status": "Stable",
         "accuracy": 88,
-        "isPremium": true
-    },
-    {
-        "id": "dollar-printer-bot",
-        "name": "$DollarprinterbotOrignal$ (1) (1).xml",
-        "description": "Aggressive capital growth algorithm with dynamic risk management.",
-        "category": "Scalping",
-        "icon": "chart",
-        "status": "Trending",
-        "accuracy": 85,
         "isPremium": true
     }
 ]
