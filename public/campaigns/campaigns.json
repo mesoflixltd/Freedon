@@ -1,26 +1,18 @@
 [
-    {
-        "id": 1,
-        "title": "HFT Wizard V2",
-        "desc": "High-Frequency Trading Protocol with 92% accuracy. Limited slots available for institutional access.",
-        "image": "/campaigns/hft_wizard.png",
-        "badge": "Limited Offer",
-        "link": "#/freebots"
-    },
-    {
-        "id": 2,
-        "title": "AI Smart Alpha",
-        "desc": "Neural-network driven market sentiment analysis. Join the revolution of automated intelligence.",
-        "image": "/campaigns/ai_smart_alpha.png",
-        "badge": "AI Exclusive",
-        "link": "#/ai-hub"
-    },
-    {
-        "id": 3,
-        "title": "Live Mentorship",
-        "desc": "Professional 1-on-1 coaching sessions. Scale your account with expert guidance.",
-        "image": "/campaigns/live_mentorship.png",
-        "badge": "Coaching",
-        "link": "#/classes"
-    }
+  {
+    "id": 1,
+    "title": "HFT Wizard V2",
+    "desc": "High-Frequency Trading Protocol with 92% accuracy. Limited slots available for institutional access.",
+    "image": "/campaigns/hft_wizard.png",
+    "badge": "Limited Offer",
+    "link": "#/freebots"
+  },
+  {
+    "id": 2,
+    "title": "AI Smart Alpha",
+    "desc": "Neural-network driven market sentiment analysis. Join the revolution of automated intelligence.",
+    "image": "/campaigns/ai_smart_alpha.png",
+    "badge": "AI Exclusive",
+    "link": "#/ai-hub"
+  }
 ]
