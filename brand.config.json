@@ -62,7 +62,7 @@
         "name": "Mesoflix",
         "app_id": "114343",
         "client_id": "32AZw2ldQ9VdWIP4XuTjU",
-        "oauth_redirect_uri": "https://v2.tradermind.site/",
+        "oauth_redirect_uri": "https://dbot.tradermind.site/",
         "logo": {
             "type": "component",
             "component_name": "BrandLogo",
@@ -77,10 +77,10 @@
         },
         "hostname": {
             "production": {
-                "com": "v2.tradermind.site"
+                "com": "dbot.tradermind.site"
             },
             "staging": {
-                "com": "v2.tradermind.site"
+                "com": "dbot.tradermind.site"
             }
         },
         "auth2_url": {
