@@ -438,39 +438,49 @@ const BulkTradingPage: React.FC = observer(() => {
 
             // 1. Prepare Contract Type
             let contract_type = '';
-            let barrier = undefined;
 
             if (tradeType === 'over_under') {
                 contract_type = side === 'over' ? 'DIGITOVER' : 'DIGITUNDER';
-                barrier = prediction.toString();
             } else if (tradeType === 'even_odd') {
                 contract_type = side === 'even' ? 'DIGITEVEN' : 'DIGITODD';
             } else if (tradeType === 'rise_fall') {
                 contract_type = side === 'rise' ? 'CALL' : 'PUT';
             } else if (tradeType === 'matches_differs') {
                 contract_type = side === 'matches' ? 'DIGITMATCH' : 'DIGITDIFF';
-                barrier = prediction.toString();
             }
 
             // 2. Execute Direct Batch Buy (Bypasses proposal/caching issues)
             console.log(`[BulkTrade] Executing direct batch-buy for ${bulkCount} positions...`);
 
+            const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+
             const buyPromises = [];
             for (let i = 0; i < bulkCount; i++) {
+                const parameters: any = {
+                    amount: currentStake,
+                    basis: 'stake',
+                    contract_type,
+                    currency: authData$.value?.currency || 'USD',
+                    duration: 1,
+                    duration_unit: 't',
+                };
+
+                if (isLegacy) {
+                    parameters.symbol = currentSymbol;
+                } else {
+                    parameters.underlying_symbol = currentSymbol;
+                }
+
+                if (tradeType === 'over_under' || tradeType === 'matches_differs') {
+                    parameters.selected_tick = prediction;
+                    parameters.barrier = prediction.toString();
+                }
+
                 // We use "buy: 1" with parameters to bypass the need for a proposal ID
                 const buyReq = {
                     buy: '1',
                     price: currentStake * 2, // Max price willing to pay (usually twice the stake is safe)
-                    parameters: {
-                        amount: currentStake,
-                        basis: 'stake',
-                        contract_type,
-                        currency: authData$.value?.currency || 'USD',
-                        duration: 1,
-                        duration_unit: 't',
-                        underlying_symbol: currentSymbol,
-                        barrier: barrier ? barrier.toString() : undefined,
-                    },
+                    parameters,
                     subscribe: 1,
                     req_id: 3000 + i,
                 };
