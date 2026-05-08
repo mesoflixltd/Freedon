@@ -264,7 +264,8 @@ class APIBase {
                             try {
                                 if ((window as any).DERIV_API_LOGGING) {
                                     const data = JSON.parse(event.data);
-                                    if (data.msg_type !== 'time' && data.msg_type !== 'balance') {
+                                    const EXCLUDED_LOG_TYPES = ['tick', 'time', 'balance', 'candles', 'history', 'ohlc', 'ping', 'heartbeat'];
+                                    if (!EXCLUDED_LOG_TYPES.includes(data.msg_type)) {
                                         console.log('%c[RAW WS Message]', 'color: #795548; font-weight: bold;', data);
                                     }
                                 }
@@ -284,7 +285,8 @@ class APIBase {
                             
                             // Log only if explicitly enabled
                             if ((window as any).DERIV_API_LOGGING) {
-                                if (message.msg_type !== 'balance' && message.msg_type !== 'time') {
+                                const EXCLUDED_LOG_TYPES = ['tick', 'time', 'balance', 'candles', 'history', 'ohlc', 'ping', 'heartbeat'];
+                                if (!EXCLUDED_LOG_TYPES.includes(message.msg_type)) {
                                     console.log('%c[WS Message]', 'color: #9C27B0; font-weight: bold;', message);
                                 }
                             }
