@@ -397,15 +397,25 @@ export default class ClientStore {
 
                 this.all_accounts_balance = null;
 
-                localStorage.removeItem('accountsList');
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('clientAccounts');
-                localStorage.removeItem('account_type'); // Clear account type on logout
-                removeCookies('client_information');
+                const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+                if (isLegacy) {
+                    // For legacy accounts, synchronize authToken with the newly selected active_login_id
+                    const accountsList = JSON.parse(localStorage.getItem('accountsList') || '{}');
+                    const activeToken = accountsList[active_login_id || ''];
+                    if (activeToken) {
+                        localStorage.setItem('authToken', activeToken);
+                    }
+                } else {
+                    localStorage.removeItem('accountsList');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('clientAccounts');
+                    localStorage.removeItem('account_type'); // Clear account type on logout
+                    removeCookies('client_information');
 
-                setIsAuthorized(false);
-                setAccountList([]);
-                setAuthData(null);
+                    setIsAuthorized(false);
+                    setAccountList([]);
+                    setAuthData(null);
+                }
 
                 this.setIsLoggingOut(false);
 
