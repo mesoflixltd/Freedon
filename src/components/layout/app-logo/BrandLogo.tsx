@@ -19,31 +19,35 @@ export const BrandLogo = ({
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '10px',
                 fontWeight: 800,
                 fontSize: isMobile ? '20px' : '22px',
                 color: fill,
-                letterSpacing: '-0.02em',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                letterSpacing: '-0.03em',
+                fontFamily: '"Outfit", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             }}
         >
             <div
                 style={{
-                    width: isMobile ? '28px' : '32px',
-                    height: isMobile ? '28px' : '32px',
-                    background: fill,
+                    width: isMobile ? '30px' : '34px',
+                    height: isMobile ? '30px' : '34px',
+                    background: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)', // Cyber neon blue/cyan gradient
                     borderRadius: '8px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'white',
-                    fontSize: isMobile ? '16px' : '18px',
+                    color: '#ffffff',
+                    fontSize: isMobile ? '16px' : '19px',
                     fontWeight: 900,
+                    boxShadow: '0 4px 12px rgba(79, 172, 254, 0.35)',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.15)',
                 }}
             >
-                O
+                Q
             </div>
-            <span>{isMobile ? 'Osam' : 'OsamTradingHub'}</span>
+            <span style={{ fontWeight: 900, letterSpacing: '-0.02em' }}>
+                Tradq
+            </span>
         </div>
     );
 };

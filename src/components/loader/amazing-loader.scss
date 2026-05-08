@@ -29,8 +29,8 @@
         position: absolute;
         inset: 0;
         background-image:
-            linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+            linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
         background-size: 50px 50px;
         mask-image: radial-gradient(circle at center, black, transparent 80%);
     }
@@ -46,7 +46,7 @@
         &--1 {
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+            background: radial-gradient(circle, #00f2fe 0%, transparent 70%);
             top: -200px;
             left: -200px;
         }
@@ -54,7 +54,7 @@
         &--2 {
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+            background: radial-gradient(circle, #7f5cff 0%, transparent 70%);
             bottom: -150px;
             right: -150px;
             animation-delay: -5s;
@@ -63,7 +63,7 @@
         &--3 {
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+            background: radial-gradient(circle, #4facfe 0%, transparent 70%);
             top: 40%;
             left: 30%;
             animation-delay: -10s;
@@ -92,7 +92,7 @@
         width: 420px;
         box-shadow:
             0 30px 60px -12px rgba(0, 0, 0, 0.6),
-            inset 0 0 30px rgba(99, 102, 241, 0.05);
+            inset 0 0 30px rgba(0, 242, 254, 0.05);
         animation: card-appear 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         position: relative;
         overflow: hidden;
@@ -116,35 +116,70 @@
 
     &__brand-mark {
         position: relative;
-        width: 100px;
-        height: 100px;
+        width: 110px;
+        height: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 50%;
+        background: rgba(10, 8, 30, 0.65);
+        border: 1px solid rgba(0, 242, 254, 0.35);
+        box-shadow: inset 0 0 25px rgba(0, 242, 254, 0.25);
+        overflow: hidden;
+
+        // Conic scan sweep
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: conic-gradient(from 0deg, rgba(0, 242, 254, 0.45) 0deg, rgba(0, 242, 254, 0) 90deg);
+            border-radius: 50%;
+            animation: rotate-ring 3s linear infinite;
+            mix-blend-mode: screen;
+            z-index: 1;
+        }
+
+        // Radar coordinate grid overlay
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle, transparent 35%, rgba(0, 242, 254, 0.15) 36%, rgba(0, 242, 254, 0.15) 38%, transparent 39%),
+                radial-gradient(circle, transparent 65%, rgba(0, 242, 254, 0.1) 66%, rgba(0, 242, 254, 0.1) 68%, transparent 69%),
+                linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 12px 12px, 12px 12px;
+            background-position: center;
+            border-radius: 50%;
+            z-index: 2;
+        }
     }
 
     &__o-letter {
         color: #ffffff;
-        font-size: 54px;
+        font-size: 50px;
         font-weight: 900;
-        z-index: 2;
-        text-shadow: 0 0 25px rgba(99, 102, 241, 0.8);
+        z-index: 5; /* Sit on top of grid */
+        text-shadow: 0 0 25px rgba(0, 242, 254, 0.9);
         animation: float 4s ease-in-out infinite;
         letter-spacing: -2px;
     }
 
     &__ring {
         position: absolute;
-        inset: 0;
-        border: 2px solid rgba(99, 102, 241, 0.4);
-        border-radius: 28px;
-        transform: rotate(45deg);
-        animation: rotate-ring 10s linear infinite;
+        inset: 4px;
+        border: 1.5px solid rgba(0, 242, 254, 0.3);
+        border-radius: 50%;
+        animation: rotate-ring 12s linear infinite;
+        z-index: 3;
+        pointer-events: none;
 
         &--outer {
-            inset: -15px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            animation: rotate-ring 15s linear infinite reverse;
+            inset: -12px;
+            border: 1px solid rgba(127, 92, 255, 0.2);
+            animation: rotate-ring 18s linear infinite reverse;
+            border-radius: 50%;
         }
     }
 
@@ -154,8 +189,8 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, transparent, #6366f1, transparent);
-        box-shadow: 0 0 15px #6366f1;
+        background: linear-gradient(90deg, transparent, #00f2fe, transparent);
+        box-shadow: 0 0 15px #00f2fe;
         opacity: 0.5;
         animation: scan-vertical 3s ease-in-out infinite;
         z-index: 3;
@@ -183,7 +218,7 @@
     }
 
     &__brand-suffix {
-        color: #6366f1;
+        color: #00f2fe;
         font-size: 14px;
         font-weight: 800;
         letter-spacing: 12px;
@@ -228,7 +263,7 @@
         position: absolute;
         height: 100%;
         width: 0%;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6, #3b82f6);
+        background: linear-gradient(90deg, #00f2fe, #7f5cff, #4facfe);
         border-radius: 100px;
         transition: width 0.1s ease-out;
     }
@@ -249,7 +284,7 @@
         margin-top: 4px;
         font-family: 'Outfit', sans-serif;
         letter-spacing: 1px;
-        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
     }
 
     &__security-badge {
@@ -311,9 +346,9 @@
 
         &:hover {
             color: #ffffff;
-            background: rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+            background: rgba(0, 242, 254, 0.15);
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2);
             transform: translateY(-2px);
 
             svg {

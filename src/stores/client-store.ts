@@ -329,7 +329,7 @@ export default class ClientStore {
             localStorage.removeItem('clientAccounts');
             localStorage.removeItem('account_type');
             localStorage.removeItem('is_legacy_account');
-            localStorage.removeItem('osamtradinghub_account_v2');
+            localStorage.removeItem('tradq_account_v2');
             localStorage.removeItem('mesoflix_account_v2');
 
             // Clear sessionStorage

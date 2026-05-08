@@ -38,7 +38,7 @@ const SelectionPage = () => {
         <div className='selection-page'>
             <div className='selection-page__container'>
                 <header className='selection-page__header'>
-                    <h1 className='selection-page__title'>OsamTradingHub</h1>
+                    <h1 className='selection-page__title'>Tradq</h1>
                     <p className='selection-page__subtitle'>
                         {localize('Please select your Deriv account type to continue')}
                     </p>
@@ -73,7 +73,7 @@ const SelectionPage = () => {
                 </div>
 
                 <footer className='selection-page__footer'>
-                    <p>&copy; {new Date().getFullYear()} OsamTradingHub. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Tradq. All rights reserved.</p>
                 </footer>
             </div>
         </div>

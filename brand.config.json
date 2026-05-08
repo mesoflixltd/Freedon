@@ -1,11 +1,11 @@
 {
-    "brand_name": "OsamTradingHub",
-    "brand_domain": "osamtradinghub.com",
+    "brand_name": "Tradq",
+    "brand_domain": "tradeqhub.com",
     "brand_hostname": {
-        "staging": "osamtradinghub.com",
-        "production": "osamtradinghub.com"
+        "staging": "tradeqhub.com",
+        "production": "tradeqhub.com"
     },
-    "domain_name": "osamtradinghub.com",
+    "domain_name": "tradeqhub.com",
     "main_branch": "master",
     "colors": {
         "primary": "#6366f1",
@@ -59,17 +59,17 @@
         "css_variable_prefix": "--brand"
     },
     "platform": {
-        "name": "OsamTradingHub",
-        "app_id": "82991",
-        "client_id": "336LX3fF9g92vG1aGHypZ",
-        "oauth_redirect_uri": "https://osamtradinghub.com/",
+        "name": "Tradq",
+        "app_id": "116391",
+        "client_id": "337zPatJc8aj5yrYRCZWx",
+        "oauth_redirect_uri": "https://tradeqhub.com/",
         "logo": {
             "type": "component",
             "component_name": "BrandLogo",
-            "alt_text": "OsamTradingHub",
+            "alt_text": "Tradq",
             "link_url": "/",
             "show_text": false,
-            "text": "OsamTradingHub"
+            "text": "Tradq"
         },
         "footer": {
             "enable_language_settings": false,
@@ -77,10 +77,10 @@
         },
         "hostname": {
             "production": {
-                "com": "osamtradinghub.com"
+                "com": "tradeqhub.com"
             },
             "staging": {
-                "com": "osamtradinghub.com"
+                "com": "tradeqhub.com"
             }
         },
         "auth2_url": {

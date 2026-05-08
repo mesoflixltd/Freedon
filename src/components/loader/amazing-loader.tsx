@@ -44,7 +44,7 @@ const AmazingLoader: React.FC<AmazingLoaderProps> = ({ message, onSkip }) => {
                 <div className='amazing-loader__glass-card'>
                     <div className='amazing-loader__logo-section'>
                         <div className='amazing-loader__brand-mark'>
-                            <span className='amazing-loader__o-letter'>O</span>
+                            <span className='amazing-loader__o-letter'>Q</span>
                             <div className='amazing-loader__ring'></div>
                             <div className='amazing-loader__ring amazing-loader__ring--outer'></div>
                             <div className='amazing-loader__scan-line'></div>
@@ -53,8 +53,8 @@ const AmazingLoader: React.FC<AmazingLoaderProps> = ({ message, onSkip }) => {
 
                     <div className='amazing-loader__content'>
                         <div className='amazing-loader__brand-wrapper'>
-                            <h2 className='amazing-loader__brand-name'>OSAMTRADINGHUB</h2>
-                            <span className='amazing-loader__brand-suffix'>TRADING HUB</span>
+                            <h2 className='amazing-loader__brand-name'>TRADQ</h2>
+                            <span className='amazing-loader__brand-suffix'>AI TRADING HUB</span>
                         </div>
 
                         <div className='amazing-loader__status-container'>
@@ -98,7 +98,7 @@ const AmazingLoader: React.FC<AmazingLoaderProps> = ({ message, onSkip }) => {
                 )}
 
                 <div className='amazing-loader__footer'>
-                    <span className='amazing-loader__tagline'>OsamTradingHub · AI-Powered Trading Infrastructure</span>
+                    <span className='amazing-loader__tagline'>Tradq · AI-Powered Trading Infrastructure</span>
                 </div>
             </div>
         </div>

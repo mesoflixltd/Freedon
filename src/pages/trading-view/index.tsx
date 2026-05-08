@@ -6,7 +6,7 @@ import './trading-view.scss';
 const _0x4f2a = ['aHR0cHM6Ly9jaGFydHMuZGVyaXYuY29tL2Rlcml2'];
 const getChartUrl = () => atob(_0x4f2a[0]);
 
-const WS_URL = 'wss://api.derivws.com/trading/v1/options/ws/public?app_id=82991';
+const WS_URL = 'wss://api.derivws.com/trading/v1/options/ws/public?app_id=116391';
 
 const MARKET_NAME_MAP: Record<string, string> = {
     R_10: 'Volatility 10 Index',

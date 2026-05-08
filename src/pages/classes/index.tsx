@@ -122,7 +122,7 @@ const Classes = observer(() => {
     return (
         <div className='classes-page'>
             <div className='classes-header'>
-                <h1>{localize('OsamTradingHub Academy')}</h1>
+                <h1>{localize('Tradq Academy')}</h1>
                 <p>{localize('Master our elite trading strategies with repo-synced institutional classes.')}</p>
             </div>
 

@@ -58,7 +58,7 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                                     </div>
                                 </a>
                                 <a
-                                    href='https://t.me/osamtradinghub'
+                                    href='https://t.me/tradeqhub'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                     className='social-link social-link--telegram'

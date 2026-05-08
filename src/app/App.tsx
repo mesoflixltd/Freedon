@@ -185,7 +185,7 @@ function App() {
                 if (accounts.length > 0) {
                     // Store legacy flag and clear V2 flag
                     localStorage.setItem('is_legacy_account', 'true');
-                    localStorage.removeItem('osamtradinghub_account_v2');
+                    localStorage.removeItem('tradq_account_v2');
                     localStorage.removeItem('mesoflix_account_v2');
 
                     // Set active loginid to first account
@@ -246,7 +246,7 @@ function App() {
                         if (response.access_token) {
                             cleanupURL();
                             // Mark V2 as active since it succeeded
-                            localStorage.setItem('osamtradinghub_account_v2', 'true');
+                            localStorage.setItem('tradq_account_v2', 'true');
                             localStorage.setItem('mesoflix_account_v2', 'true');
                             localStorage.removeItem('is_legacy_account');
                             window.location.replace(window.location.origin);

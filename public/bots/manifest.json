@@ -1,32 +1,12 @@
 [
     {
-        "id": "dollar-printer-bot",
-        "name": "$DollarprinterbotOrignal$ (1) (1).xml",
-        "description": "Aggressive capital growth algorithm with dynamic risk management.",
-        "category": "Scalping",
-        "icon": "chart",
-        "status": "Trending",
-        "accuracy": 85,
-        "isPremium": true
-    },
-    {
-        "id": "deriv-wizard-1",
-        "name": "Deriv wizard 1.xml",
-        "description": "Institutional-grade trend-following protocol optimized for synthetic indices.",
+        "id": "tradeq binary autobot v.1- (1)",
+        "name": "TRADEQ BINARY AUTOBOT V.1- (1).xml",
+        "description": "High-performance strategic bot: TRADEQ BINARY AUTOBOT V.1- (1). Optimized for the 2026 market.",
         "category": "Trading Strategy",
         "icon": "chart",
-        "status": "Stable",
-        "accuracy": 92,
-        "isPremium": true
-    },
-    {
-        "id": "m-ai-under-3-new",
-        "name": "M AI UNDER 3-NEW .xml",
-        "description": "AI-driven volatility analysis for high-frequency under/over execution.",
-        "category": "AI Strategy",
-        "icon": "ai",
-        "status": "Stable",
-        "accuracy": 88,
+        "status": "Trending",
+        "accuracy": 91,
         "isPremium": true
     }
 ]

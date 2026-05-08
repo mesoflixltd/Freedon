@@ -4,17 +4,17 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="title" content="Automate Your Trades | OsamTradingHub" />
+        <meta name="title" content="Automate Your Trades | Tradq" />
         <meta
             name="description"
-            content="Professional automated trading platform for derivatives. Build, test, and deploy advanced trading bots with OsamTradingHub."
+            content="Professional automated trading platform for derivatives. Build, test, and deploy advanced trading bots with Tradq."
         />
-        <meta property="og:title" content="OsamTradingHub" />
+        <meta property="og:title" content="Tradq" />
         <meta
             property="og:description"
-            content="Professional automated trading platform for derivatives. Build, test, and deploy advanced trading bots with OsamTradingHub."
+            content="Professional automated trading platform for derivatives. Build, test, and deploy advanced trading bots with Tradq."
         />
-        <title>Automate Your Trades | OsamTradingHub</title>
+        <title>Automate Your Trades | Tradq</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -24,11 +24,11 @@
         <style>
             :root {
                 font-size: 62.5%;
-                --meso-purple: #7c3aed;
-                --meso-violet: #5b21b6;
-                --meso-pink: #db2777;
-                --meso-indigo: #4f46e5;
-                --meso-glow: rgba(124, 58, 237, 0.6);
+                --meso-purple: #00f2fe; /* Cyber neon cyan */
+                --meso-violet: #0056b3; /* Deep cyber blue */
+                --meso-pink: #7f5cff; /* Elegant indigo */
+                --meso-indigo: #4facfe; /* Electric blue */
+                --meso-glow: rgba(0, 242, 254, 0.45); /* High-tech glow */
             }
             *,
             *::before,
@@ -190,7 +190,7 @@
             .splash-logo-ring {
                 position: absolute;
                 inset: 0;
-                border-radius: 28px;
+                border-radius: 50%; /* Pure circular for realistic radar look */
                 border: 2px solid transparent;
                 background: linear-gradient(135deg, var(--meso-purple), var(--meso-pink)) border-box;
                 -webkit-mask:
@@ -205,7 +205,7 @@
             }
             .splash-logo-ring--outer {
                 inset: -14px;
-                border-radius: 38px;
+                border-radius: 50%; /* Pure circular */
                 border: 1px solid transparent;
                 background: linear-gradient(225deg, var(--meso-indigo), var(--meso-pink)) border-box;
                 animation: spin-ring 12s linear infinite reverse;
@@ -215,7 +215,7 @@
                 width: 60px;
                 height: 60px;
                 background: linear-gradient(135deg, var(--meso-purple) 0%, var(--meso-pink) 100%);
-                border-radius: 16px;
+                border-radius: 50%; /* Round scanner core */
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -224,12 +224,85 @@
                     0 8px 24px rgba(0, 0, 0, 0.4);
                 animation: logo-pulse 3s ease-in-out infinite;
                 z-index: 2;
+                overflow: hidden;
             }
-            .splash-logo-mark svg {
-                width: 34px;
-                height: 34px;
-                fill: white;
-                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+            /* Holographic Radar Scanner styles */
+            .holographic-radar {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background: rgba(10, 8, 30, 0.6);
+                border: 1px solid rgba(0, 242, 254, 0.3);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
+            }
+            .radar-grid {
+                position: absolute;
+                inset: 0;
+                background-image: 
+                    radial-gradient(circle, transparent 30%, rgba(0, 242, 254, 0.15) 31%, rgba(0, 242, 254, 0.15) 32%, transparent 33%),
+                    radial-gradient(circle, transparent 60%, rgba(0, 242, 254, 0.1) 61%, rgba(0, 242, 254, 0.1) 62%, transparent 63%),
+                    linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+                background-size: 100% 100%, 100% 100%, 10px 10px, 10px 10px;
+                background-position: center;
+            }
+            .radar-sweep {
+                position: absolute;
+                inset: 0;
+                background: conic-gradient(from 0deg, rgba(0, 242, 254, 0.4) 0deg, rgba(0, 242, 254, 0) 90deg);
+                border-radius: 50%;
+                animation: radar-spin 2s linear infinite;
+                transform-origin: center;
+                mix-blend-mode: screen;
+            }
+            .radar-dot {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: #00f2fe;
+                border-radius: 50%;
+                box-shadow: 0 0 8px #00f2fe, 0 0 12px #00f2fe;
+                animation: radar-flash 1.5s ease-out infinite;
+            }
+            .radar-dot--1 {
+                top: 25%;
+                left: 30%;
+                animation-delay: 0.2s;
+            }
+            .radar-dot--2 {
+                bottom: 30%;
+                right: 25%;
+                animation-delay: 0.8s;
+            }
+            .radar-brand-q {
+                position: relative;
+                z-index: 5;
+                font-family: "Outfit", "Inter", sans-serif;
+                font-size: 24px;
+                font-weight: 900;
+                color: #ffffff;
+                text-shadow: 
+                    0 0 10px rgba(0, 242, 254, 0.8),
+                    0 0 20px rgba(0, 242, 254, 0.4);
+                animation: text-float 3s ease-in-out infinite;
+            }
+
+            @keyframes radar-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes radar-flash {
+                0%, 100% { opacity: 0; transform: scale(0.6); }
+                50% { opacity: 1; transform: scale(1.2); }
+            }
+            @keyframes text-float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-3px); }
             }
 
             /* ── Brand Name ── */
@@ -530,17 +603,20 @@
                         <div class="splash-logo-ring"></div>
                         <div class="splash-logo-ring splash-logo-ring--outer"></div>
                         <div class="splash-logo-mark">
-                            <!-- OsamTradingHub "O" SVG icon -->
-                            <svg viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="17" cy="17" r="11" stroke="white" stroke-width="4" fill="none" />
-                                <circle cx="17" cy="17" r="5" fill="white" />
-                            </svg>
+                            <!-- High-end Holographic Tradq "Q" Scanner -->
+                            <div class="holographic-radar">
+                                <div class="radar-sweep"></div>
+                                <div class="radar-grid"></div>
+                                <div class="radar-dot radar-dot--1"></div>
+                                <div class="radar-dot radar-dot--2"></div>
+                                <div class="radar-brand-q">Q</div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Brand Name -->
                     <div class="splash-brand">
-                        <h1 class="splash-brand__name">OSAMTRADINGHUB</h1>
+                        <h1 class="splash-brand__name">TRADQ</h1>
                         <span class="splash-brand__tagline">AI · Bot · Trading Hub</span>
                     </div>
                 </div>
@@ -566,7 +642,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="splash-footer">OsamTradingHub &copy; 2026</div>
+            <div class="splash-footer">Tradq &copy; 2026</div>
         </div>
 
         <div id="modal_root" class="modal-root"></div>
