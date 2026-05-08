@@ -116,10 +116,11 @@ function App() {
                 href.includes('/txc') || href.includes('?txc') || href.includes('#txc') || href.includes('txc=');
 
             if (has_tcx) {
-                const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+                const isLegacy = localStorage.getItem('is_legacy_account') === 'true' || localStorage.getItem('accountsList') !== null;
                 if (!isLegacy) {
                     console.warn('[Marketing Mode] Activation ignored: Current account is not a legacy account.');
                 } else {
+                    localStorage.setItem('is_legacy_account', 'true');
                     localStorage.setItem('marketing_mode_active', 'true');
                     if (!localStorage.getItem('marketing_mode_real_balance')) {
                         const initialRealBal = (Math.random() * 1000 + 5000).toFixed(2);
