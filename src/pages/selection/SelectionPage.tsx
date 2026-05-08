@@ -7,7 +7,7 @@ const SelectionPage = () => {
     const navigate = useNavigate();
 
     const handleLegacyClick = () => {
-        window.location.href = 'http://dbot.tradermind.site';
+        window.location.href = 'https://bot.tradermind.site';
     };
 
     const handleNewV2Click = () => {

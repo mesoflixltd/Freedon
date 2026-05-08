@@ -305,9 +305,15 @@ export class OAuthTokenExchangeService {
             const baseURL = this.getOAuth2BaseURL();
             const tokenEndpoint = `${baseURL}token`;
 
+            const clientIdFromEnv = process.env.CLIENT_ID;
+            const clientId = (clientIdFromEnv && clientIdFromEnv !== 'undefined' && clientIdFromEnv !== 'null') 
+                ? clientIdFromEnv 
+                : (brandConfig as any).platform?.client_id;
+
             const requestBody = new URLSearchParams({
                 grant_type: 'refresh_token',
                 refresh_token: refreshToken,
+                client_id: clientId || '',
             });
 
             const response = await fetch(tokenEndpoint, {

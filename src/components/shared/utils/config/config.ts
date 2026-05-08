@@ -9,7 +9,7 @@ import brandConfig from '@/../brand.config.json';
 // Production app domains
 export const PRODUCTION_DOMAINS = {
     COM: brandConfig.platform.hostname.production.com,
-    DBOT: 'dbot.tradermind.site',
+    DBOT: 'bot.tradermind.site',
 } as const;
 
 // Staging app domains

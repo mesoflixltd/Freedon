@@ -61,8 +61,8 @@
     "platform": {
         "name": "Mesoflix",
         "app_id": "114343",
-        "client_id": "32AZw2ldQ9VdWIP4XuTjU",
-        "oauth_redirect_uri": "https://dbot.tradermind.site/",
+        "client_id": "330eaEOGxCeshCbrYIo8F",
+        "oauth_redirect_uri": "https://bot.tradermind.site/",
         "logo": {
             "type": "component",
             "component_name": "BrandLogo",
@@ -77,10 +77,10 @@
         },
         "hostname": {
             "production": {
-                "com": "dbot.tradermind.site"
+                "com": "bot.tradermind.site"
             },
             "staging": {
-                "com": "dbot.tradermind.site"
+                "com": "bot.tradermind.site"
             }
         },
         "auth2_url": {

@@ -24,7 +24,7 @@ const domains: Record<Service, DomainConfig> = {
         production: {
             me: 'https://smarttrader.deriv.me',
             be: 'https://smarttrader.deriv.be',
-            com: 'http://dbot.tradermind.site',
+            com: 'https://bot.tradermind.site',
         },
     },
     derivHub: {

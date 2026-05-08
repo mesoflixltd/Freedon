@@ -109,7 +109,7 @@ function App() {
             // Handle Legacy Platform Redirection
             if (params.isLegacy) {
                 console.log('🔄 Legacy account detected, redirecting to legacy platform...');
-                const legacyURL = 'http://dbot.tradermind.site/';
+                const legacyURL = 'https://bot.tradermind.site/';
                 const currentSearch = window.location.search;
                 window.location.href = `${legacyURL}${currentSearch}`;
                 return;
