@@ -79,17 +79,23 @@ export const requestOptionsProposalForQS = (
     ws?: WebSocket | ApiBaseType
 ): Promise<ProposalResponse> => {
     const { amount, currency, underlying_symbol, contract_type, duration, duration_unit, basis } = input_values;
+    const isLegacy = typeof localStorage !== 'undefined' && localStorage.getItem('is_legacy_account') === 'true';
 
-    const proposal_request: OptionsProposalRequest = {
-        ...DEFAULT_OPTIONS_PROPOSAL_REQUEST,
+    const proposal_request: any = {
         amount,
         currency,
-        underlying_symbol,
         contract_type,
         duration,
         duration_unit,
         basis,
+        proposal: 1,
     };
+
+    if (isLegacy) {
+        proposal_request.symbol = underlying_symbol;
+    } else {
+        proposal_request.underlying_symbol = underlying_symbol;
+    }
 
     const digit_contracts = [
         CONTRACT_TYPES.MATCH_DIFF.MATCH, // DIGITMATCH

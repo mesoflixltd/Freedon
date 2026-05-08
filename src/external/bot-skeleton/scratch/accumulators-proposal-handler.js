@@ -23,6 +23,7 @@ export const forgetAccumulatorsProposalRequest = async instance => {
 };
 
 export const handleProposalRequestForAccumulators = instance => {
+    const isLegacy = typeof localStorage !== 'undefined' && localStorage.getItem('is_legacy_account') === 'true';
     const top_parent_block = instance?.getTopParent();
     const market_block = top_parent_block?.getChildByType('trade_definition_market');
     const underlying_symbol = market_block?.getFieldValue('SYMBOL_LIST');
@@ -30,30 +31,43 @@ export const handleProposalRequestForAccumulators = instance => {
     const growth_rate = instance?.getFieldValue('GROWTHRATE_LIST') || 0.01;
     const amount = instance?.childBlocks_?.[0]?.getField('NUM')?.getValue() || 0;
     const proposal_request = {
-        ...DEFAULT_PROPOSAL_REQUEST,
         amount,
         currency,
-        underlying_symbol,
         growth_rate,
+        basis: 'stake',
+        contract_type: 'ACCU',
+        proposal: 1,
+        subscribe: 1,
     };
+    if (isLegacy) {
+        proposal_request.symbol = underlying_symbol;
+    } else {
+        proposal_request.underlying_symbol = underlying_symbol;
+    }
     window.Blockly.accumulators_request = proposal_request;
 };
 
 export const requestProposalForQS = (input_values, ws) => {
     const { amount, currency, symbol, growth_rate, limit_order } = input_values;
     const { take_profit } = limit_order;
+    const isLegacy = typeof localStorage !== 'undefined' && localStorage.getItem('is_legacy_account') === 'true';
 
     const proposal_request = {
-        ...DEFAULT_PROPOSAL_REQUEST,
         amount,
         currency,
-        underlying_symbol: symbol,
         growth_rate,
-        subscribe: undefined,
+        basis: 'stake',
+        contract_type: 'ACCU',
+        proposal: 1,
         limit_order: {
             take_profit,
         },
     };
+    if (isLegacy) {
+        proposal_request.symbol = symbol;
+    } else {
+        proposal_request.underlying_symbol = symbol;
+    }
 
     return ws
         ?.send(proposal_request)

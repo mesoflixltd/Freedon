@@ -128,6 +128,7 @@ export default Engine =>
         }
 
         async requestAccumulatorStats() {
+            const isLegacy = typeof localStorage !== 'undefined' && localStorage.getItem('is_legacy_account') === 'true';
             const subscription_id = this.subscription_id_for_accumulators;
             const is_proposal_requested = this.is_proposal_requested_for_accumulators;
             const proposal_request = {
@@ -139,8 +140,12 @@ export default Engine =>
                 growth_rate: this?.tradeOptions?.growth_rate,
                 proposal: 1,
                 subscribe: 1,
-                underlying_symbol: this?.tradeOptions?.symbol,
             };
+            if (isLegacy) {
+                proposal_request.symbol = this?.tradeOptions?.symbol;
+            } else {
+                proposal_request.underlying_symbol = this?.tradeOptions?.symbol;
+            }
             if (!subscription_id && !is_proposal_requested) {
                 this.is_proposal_requested_for_accumulators = true;
                 if (proposal_request) {
