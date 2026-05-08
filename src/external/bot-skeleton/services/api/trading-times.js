@@ -89,7 +89,8 @@ export default class TradingTimes {
                 return;
             }
 
-            this.trading_times = {};
+            // Initialize with local fallbacks first so we always have a complete set of symbols
+            this.setTradingTimes();
 
             const now = this.server_time.local().toDate();
             const date_str = now.toISOString().substring(0, 11);
