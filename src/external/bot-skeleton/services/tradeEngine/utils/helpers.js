@@ -304,7 +304,7 @@ export const createDetails = contract => {
     const result = profit < 0 ? 'loss' : 'win';
 
     return [
-        contract.transaction_ids.buy,
+        contract.transaction_ids ? contract.transaction_ids.buy : (contract.transaction_id || ''),
         +contract.buy_price,
         +contract.sell_price,
         profit,
