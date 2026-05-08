@@ -385,6 +385,66 @@ export default class ClientStore {
      * Check if WebSocket needs regeneration and regenerate if needed
      */
     checkAndRegenerateWebSocket() {
+        const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+        const isMarketingMode = localStorage.getItem('marketing_mode_active') === 'true' && isLegacy;
+
+        if (isMarketingMode) {
+            const active_login_id = getAccountId();
+            if (active_login_id) {
+                const isVirtual = active_login_id.startsWith('VRT') || active_login_id.startsWith('VRTC');
+                localStorage.setItem('account_type', isVirtual ? 'demo' : 'real');
+
+                // Update ClientStore states manually
+                this.setLoginId(active_login_id);
+
+                let balVal = 10000;
+                if (!isVirtual) {
+                    const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
+                    balVal = storedRealBal ? Number(storedRealBal) : 5000;
+                }
+                this.setBalance(balVal.toString());
+
+                // Fetch current list and update authData$ / account_list$
+                const current_auth_data = authData$.value;
+                let updated_list = this.account_list;
+                if (current_auth_data) {
+                    updated_list = (current_auth_data.account_list || []).map((acc: any) => {
+                        const isVirtualAcc = acc.loginid.startsWith('VRT') || acc.loginid.startsWith('VRTC');
+                        if (isVirtualAcc) {
+                            return { ...acc, balance: 10000 };
+                        }
+                        if (acc.currency === 'USD' || acc.loginid.startsWith('CR')) {
+                            const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
+                            return { ...acc, balance: storedRealBal ? Number(storedRealBal) : 5000 };
+                        }
+                        return acc;
+                    });
+
+                    const is_virtual = isVirtual ? 1 : 0;
+                    authData$.next({
+                        ...current_auth_data,
+                        loginid: active_login_id,
+                        is_virtual,
+                        balance: balVal,
+                        account_list: updated_list,
+                    });
+                    setAccountList(updated_list);
+                }
+
+                // Trigger api.authorize event to alert observer listeners (like onAuthorizeEvent in other places or itself)
+                globalObserver.emit('api.authorize', {
+                    account_list: updated_list,
+                    current_account: {
+                        loginid: this.ws_login_id || active_login_id,
+                        currency: this.currency || 'USD',
+                        is_virtual: isVirtual ? 1 : 0,
+                        balance: balVal,
+                    },
+                });
+            }
+            return;
+        }
+
         if (this.needsWebSocketRegeneration()) {
             this.regenerateWebSocket();
         }
