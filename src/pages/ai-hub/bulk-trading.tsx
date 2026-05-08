@@ -84,10 +84,23 @@ function useAuthWS() {
         let cancelled = false;
         (async () => {
             try {
+                const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+                const activeLoginid = localStorage.getItem('active_loginid');
+                const appId = process.env.APP_ID || '114343';
+
+                if (isLegacy && activeLoginid) {
+                    if (!cancelled) {
+                        setWsUrl(`wss://api.derivws.com/trading/v1/options/ws/public?app_id=${appId}`);
+                        setIsAuthenticated(true);
+                        setStatus('connected');
+                    }
+                    return;
+                }
+
                 const authInfo = OAuthTokenExchangeService.getAuthInfo();
                 if (!authInfo?.access_token) {
                     setStatus('unauthenticated');
-                    setWsUrl('wss://api.derivws.com/trading/v1/options/ws/public');
+                    setWsUrl(`wss://api.derivws.com/trading/v1/options/ws/public?app_id=${appId}`);
                     setIsAuthenticated(false);
                     return;
                 }
@@ -98,7 +111,8 @@ function useAuthWS() {
                 }
             } catch (e) {
                 if (!cancelled) {
-                    setWsUrl('wss://api.derivws.com/trading/v1/options/ws/public');
+                    const appId = process.env.APP_ID || '114343';
+                    setWsUrl(`wss://api.derivws.com/trading/v1/options/ws/public?app_id=${appId}`);
                     setStatus('unauthenticated');
                     setIsAuthenticated(false);
                 }
@@ -109,6 +123,7 @@ function useAuthWS() {
 
     return { wsRef, wsUrl, status, setStatus, isAuthenticated };
 }
+
 
 const BulkTradingPage: React.FC = observer(() => {
     const [tradeType,   setTradeType]   = useState<TTradeType>(() => (localStorage.getItem('bulk_trade_type') as TTradeType) ?? 'over_under');

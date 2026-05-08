@@ -61,11 +61,25 @@ const getDefaultServerURL = () => {
  * @returns Promise with WebSocket URL or fallback to default server
  */
 export const getSocketURL = async (): Promise<string> => {
+    const formatWSUrl = (url: string) => {
+        let wsUrl = url.replace(/^http/, 'ws');
+        const appId = process.env.APP_ID || brandConfig.platform.app_id || '114343';
+        if (!wsUrl.includes('app_id=')) {
+            wsUrl += `${wsUrl.includes('?') ? '&' : '?'}app_id=${appId}`;
+        }
+        return wsUrl;
+    };
+
     try {
-        // Check if user is authenticated
+        const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+        if (isLegacy) {
+            return formatWSUrl(getDefaultServerURL());
+        }
+
+        // Check if user is authenticated with V2
         const authInfo = OAuthTokenExchangeService.getAuthInfo();
         if (!authInfo || !authInfo.access_token) {
-            return getDefaultServerURL();
+            return formatWSUrl(getDefaultServerURL());
         }
 
         // Use the DerivWSAccountsService to get authenticated WebSocket URL
@@ -73,9 +87,10 @@ export const getSocketURL = async (): Promise<string> => {
         return wsUrl;
     } catch (error) {
         console.error('[DerivWS] Error in getSocketURL:', error);
-        return getDefaultServerURL();
+        return formatWSUrl(getDefaultServerURL());
     }
 };
+
 
 export const getDebugServiceWorker = () => {
     const debug_service_worker_flag = window.localStorage.getItem('debug_service_worker');

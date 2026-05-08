@@ -108,6 +108,18 @@ const AccountSwitcher = observer(({ activeAccount, onTransferClick, isTransferDi
         try {
             setIsResettingBalance(true);
             
+            const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+            if (isLegacy) {
+                const response = await api_base.api?.send({ topup_virtual: 1 });
+                if (response?.error) {
+                    throw new Error(response.error.message || 'Unable to reset demo balance');
+                }
+                await api_base.api?.send({ balance: 1 });
+                client?.checkAndRegenerateWebSocket();
+                alert('Demo balance successfully reset');
+                return;
+            }
+
             // Get valid OAuth token
             const { OAuthTokenExchangeService } = await import('@/services/oauth-token-exchange.service');
             const token = OAuthTokenExchangeService.getAccessToken();
@@ -115,6 +127,7 @@ const AccountSwitcher = observer(({ activeAccount, onTransferClick, isTransferDi
             if (!token) {
                 throw new Error('Authentication token is missing. Please re-login.');
             }
+
 
             const appId = process.env.APP_ID || (brandConfig as any).platform?.app_id;
             const endpoint = `https://api.derivws.com/trading/v1/options/accounts/${activeLoginid}/reset-demo-balance`;

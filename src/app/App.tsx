@@ -106,14 +106,78 @@ function App() {
         if (isProcessing) return;
 
         if (isValid) {
-            // Handle Legacy Platform Redirection
+            // Handle Legacy Platform Flow On-site
             if (params.isLegacy) {
-                console.log('🔄 Legacy account detected, redirecting to legacy platform...');
-                const legacyURL = 'https://bot.tradermind.site/';
-                const currentSearch = window.location.search;
-                window.location.href = `${legacyURL}${currentSearch}`;
+                console.log('🔄 Legacy account detected, initializing legacy platform flow on-site...');
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const accounts: Array<{ account_id: string; token: string; currency: string }> = [];
+                let index = 1;
+                while (urlParams.has(`acct${index}`) && urlParams.has(`token${index}`)) {
+                    const account_id = urlParams.get(`acct${index}`)!;
+                    const token = urlParams.get(`token${index}`)!;
+                    const currency = urlParams.get(`cur${index}`) || 'USD';
+                    accounts.push({ account_id, token, currency });
+                    index++;
+                }
+
+                if (accounts.length > 0) {
+                    // Store legacy flag and clear V2 flag
+                    localStorage.setItem('is_legacy_account', 'true');
+                    localStorage.removeItem('mesoflix_account_v2');
+
+                    // Set active loginid to first account
+                    const firstAccount = accounts[0];
+                    localStorage.setItem('active_loginid', firstAccount.account_id);
+
+                    // Set account type
+                    const isDemo = firstAccount.account_id.startsWith('VRT') || firstAccount.account_id.startsWith('VRTC');
+                    localStorage.setItem('account_type', isDemo ? 'demo' : 'real');
+
+                    // Populate legacy localStorage keys for bot-skeleton compatibility
+                    const accountsList: Record<string, string> = {};
+                    const clientAccounts: Record<string, any> = {};
+                    const derivAccounts: Array<{
+                        account_id: string;
+                        balance: string;
+                        currency: string;
+                        group: string;
+                        status: string;
+                        account_type: 'demo' | 'real';
+                    }> = [];
+
+                    accounts.forEach(acc => {
+                        const acc_is_demo = acc.account_id.startsWith('VRT') || acc.account_id.startsWith('VRTC');
+                        accountsList[acc.account_id] = acc.token;
+                        clientAccounts[acc.account_id] = {
+                            currency: acc.currency,
+                            is_virtual: acc_is_demo ? 1 : 0,
+                            loginid: acc.account_id,
+                        };
+                        derivAccounts.push({
+                            account_id: acc.account_id,
+                            balance: '0',
+                            currency: acc.currency,
+                            group: 'options',
+                            status: 'active',
+                            account_type: acc_is_demo ? 'demo' : 'real',
+                        });
+                    });
+
+                    localStorage.setItem('accountsList', JSON.stringify(accountsList));
+                    localStorage.setItem('clientAccounts', JSON.stringify(clientAccounts));
+                    sessionStorage.setItem('deriv_accounts', JSON.stringify(derivAccounts));
+
+                    cleanupURL();
+
+                    // Initialize WebSocket connection using api_base
+                    import('@/external/bot-skeleton').then(async ({ api_base }) => {
+                        await api_base.init(true);
+                    });
+                }
                 return;
             }
+
 
             // Handle New Platform V2 Auth Flow
             if (params.code) {

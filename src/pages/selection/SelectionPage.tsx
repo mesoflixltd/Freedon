@@ -7,13 +7,24 @@ const SelectionPage = () => {
     const navigate = useNavigate();
 
     const handleLegacyClick = () => {
-        window.location.href = 'https://bot.tradermind.site';
+        const appId = process.env.APP_ID || '114343';
+        window.location.href = `https://oauth.deriv.com/oauth?app_id=${appId}&l=EN`;
     };
 
-    const handleNewV2Click = () => {
-        localStorage.setItem('mesoflix_account_v2', 'true');
-        navigate('/', { replace: true });
+    const handleNewV2Click = async () => {
+        try {
+            const { generateOAuthURL } = await import('@/components/shared/utils/config/config');
+            const oauthUrl = await generateOAuthURL();
+            if (oauthUrl) {
+                window.location.href = oauthUrl;
+            } else {
+                console.error('Failed to generate OAuth URL for V2');
+            }
+        } catch (error) {
+            console.error('Failed to redirect to V2 OAuth:', error);
+        }
     };
+
 
     return (
         <div className="selection-page">

@@ -271,6 +271,9 @@ export default class ClientStore {
             localStorage.removeItem('authToken');
             localStorage.removeItem('clientAccounts');
             localStorage.removeItem('account_type');
+            localStorage.removeItem('is_legacy_account');
+            localStorage.removeItem('mesoflix_account_v2');
+
 
             // Clear sessionStorage
             sessionStorage.clear();

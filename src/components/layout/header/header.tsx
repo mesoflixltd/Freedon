@@ -26,6 +26,7 @@ const AppHeader = observer(() => {
     const { isAuthorizing, activeLoginid, setIsAuthorizing, authData } = useApiBase();
     const { client } = useStore() ?? {};
     const [authTimeout, setAuthTimeout] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const is_account_regenerating = client?.is_account_regenerating || false;
 
     // Detect OAuth callback on mount (before App.tsx cleans up the URL).
@@ -104,27 +105,9 @@ const AppHeader = observer(() => {
         }
     }, [setIsAuthorizing]);
 
-    const handleLogin = useCallback(async () => {
-        try {
-            // Set authorizing state immediately when login is clicked
-            setIsAuthorizing(true);
-
-            // Generate OAuth URL with CSRF token and PKCE parameters
-            const oauthUrl = await generateOAuthURL();
-
-            if (oauthUrl) {
-                // Redirect to OAuth URL
-                window.location.replace(oauthUrl);
-            } else {
-                console.error('Failed to generate OAuth URL');
-                setIsAuthorizing(false);
-            }
-        } catch (error) {
-            console.error('Login redirection failed:', error);
-            // Reset authorizing state if redirection fails
-            setIsAuthorizing(false);
-        }
-    }, [setIsAuthorizing]);
+    const handleLogin = useCallback(() => {
+        setIsLoginModalOpen(true);
+    }, []);
 
     const handleTransfer = useCallback(() => {
         const transferCurrency = authData?.currency;
@@ -254,6 +237,42 @@ const AppHeader = observer(() => {
                 </Wrapper>
                 <Wrapper variant='right'>{renderAccountSection('right')}</Wrapper>
             </Header>
+
+            {isLoginModalOpen && (
+                <div className="login-choice-modal" onClick={() => setIsLoginModalOpen(false)}>
+                    <div className="login-choice-modal__content" onClick={(e) => e.stopPropagation()}>
+                        <button className="login-choice-modal__close" onClick={() => setIsLoginModalOpen(false)}>&times;</button>
+                        <h3 className="login-choice-modal__title">Choose Account Version</h3>
+                        <p className="login-choice-modal__subtitle">Select your account type to access the platform</p>
+                        <div className="login-choice-modal__grid">
+                            <div className="login-choice-modal__card" onClick={async () => {
+                                setIsLoginModalOpen(false);
+                                setIsAuthorizing(true);
+                                const appId = process.env.APP_ID || '114343';
+                                window.location.href = `https://oauth.deriv.com/oauth?app_id=${appId}&l=EN`;
+                            }}>
+                                <div className="login-choice-modal__card-icon">⚡</div>
+                                <h4 className="login-choice-modal__card-title">Legacy Account</h4>
+                                <p className="login-choice-modal__card-desc">Access using classic websocket-based credentials.</p>
+                            </div>
+                            <div className="login-choice-modal__card login-choice-modal__card--premium" onClick={async () => {
+                                setIsLoginModalOpen(false);
+                                setIsAuthorizing(true);
+                                const oauthUrl = await generateOAuthURL();
+                                if (oauthUrl) {
+                                    window.location.replace(oauthUrl);
+                                } else {
+                                    setIsAuthorizing(false);
+                                }
+                            }}>
+                                <div className="login-choice-modal__card-icon">🌟</div>
+                                <h4 className="login-choice-modal__card-title">New V2 Account</h4>
+                                <p className="login-choice-modal__card-desc">Access using modern OAuth2 secure token system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 });
