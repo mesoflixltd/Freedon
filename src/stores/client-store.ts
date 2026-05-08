@@ -26,7 +26,7 @@ export default class ClientStore {
     is_logged_in = false;
     is_account_regenerating = false;
 
-    accounts: Record<string, TAuthData['account_list'][number]> = {};
+    accounts: Record<string, NonNullable<TAuthData['account_list']>[number]> = {};
     all_accounts_balance: Balance | null = null;
     is_logging_out = false;
 
