@@ -6,9 +6,18 @@ import './selection-page.scss';
 const SelectionPage = () => {
     const navigate = useNavigate();
 
-    const handleLegacyClick = () => {
-        const appId = process.env.APP_ID || '114343';
-        window.location.href = `https://oauth.deriv.com/oauth?app_id=${appId}&l=EN`;
+    const handleLegacyClick = async () => {
+        try {
+            const { generateOAuthURL } = await import('@/components/shared/utils/config/config');
+            const oauthUrl = await generateOAuthURL();
+            if (oauthUrl) {
+                window.location.href = oauthUrl;
+            } else {
+                console.error('Failed to generate OAuth URL for Legacy');
+            }
+        } catch (error) {
+            console.error('Failed to redirect to Legacy OAuth:', error);
+        }
     };
 
     const handleNewV2Click = async () => {
