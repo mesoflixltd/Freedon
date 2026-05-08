@@ -24,7 +24,7 @@
             "Stores/*": ["./stores/*"]
         },
         "esModuleInterop": true,
-        "types": ["jest", "@testing-library/jest-dom", "node"]
+        "types": ["jest", "@testing-library/jest-dom", "node", "react"]
     },
     "include": ["src"],
     "exclude": ["src/utils/tmp", "src/utils/tmp/**/*"]
