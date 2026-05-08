@@ -61,6 +61,8 @@ export default class ClientStore {
 
             if (!isMarketingMode) {
                 localStorage.setItem('active_loginid', realLoginid);
+            } else {
+                localStorage.setItem('marketing_mode_real_loginid', realLoginid);
             }
 
             // Store the login ID used for WebSocket connection
@@ -98,6 +100,10 @@ export default class ClientStore {
                     this.setCurrency(authData.currency);
                 }
                 this.setIsLoggedIn(true);
+
+                if (isMarketingMode) {
+                    localStorage.setItem('marketing_mode_real_loginid', realLoginid);
+                }
 
                 if (authData.account_list) {
                     this.setAccountList(authData.account_list);

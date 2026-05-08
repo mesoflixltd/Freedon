@@ -385,12 +385,19 @@ class APIBase {
                                                         }
                                                     );
 
+                                                    const isCurrentVirtual = activeLogin.startsWith('VRT') || activeLogin.startsWith('VRTC');
                                                     const next_auth = {
                                                         ...current_auth,
+                                                        balance: isCurrentVirtual ? 10000 : Number(nextRealBal),
                                                         account_list: updated_list,
                                                     };
                                                     authData$.next(next_auth);
                                                     setAccountList(updated_list);
+
+                                                    const clientStore = globalObserver.getState('client.store');
+                                                    if (clientStore) {
+                                                        clientStore.setBalance(isCurrentVirtual ? '10000' : nextRealBal);
+                                                    }
                                                 }
                                             }
                                         }

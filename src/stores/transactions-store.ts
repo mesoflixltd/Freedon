@@ -26,6 +26,7 @@ export default class TransactionsStore {
         this.root_store = root_store;
         this.core = core;
         this.is_transaction_details_modal_open = false;
+        this.elements = getStoredItemsByUser(this.TRANSACTION_CACHE, this.core?.client?.loginid, []);
         this.disposeReactionsFn = this.registerReactions();
 
         makeObservable(this, {
@@ -48,15 +49,29 @@ export default class TransactionsStore {
     }
     TRANSACTION_CACHE = 'transaction_cache';
 
-    elements: TElement = getStoredItemsByUser(this.TRANSACTION_CACHE, this.core?.client?.loginid, []);
+    elements: TElement = {};
     active_transaction_id: null | number = null;
     recovered_completed_transactions: number[] = [];
     recovered_transactions: number[] = [];
     is_called_proposal_open_contract = false;
     is_transaction_details_modal_open = false;
 
+    getTradeAccount(): string {
+        const isMarketingMode = localStorage.getItem('marketing_mode_active') === 'true';
+        if (isMarketingMode) {
+            const real_id = localStorage.getItem('marketing_mode_real_loginid');
+            if (real_id) return real_id;
+
+            const accounts = this.core?.client?.accounts || {};
+            const cr_id = Object.keys(accounts).find(id => id.startsWith('CR'));
+            if (cr_id) return cr_id;
+        }
+        return this.core?.client?.loginid as string;
+    }
+
     get transactions(): TTransaction[] {
-        if (this.core?.client?.loginid) return this.elements[this.core?.client?.loginid] ?? [];
+        const account = this.getTradeAccount();
+        if (account) return this.elements[account] ?? [];
         return [];
     }
 
@@ -125,7 +140,7 @@ export default class TransactionsStore {
     pushTransaction(data: TContractInfo) {
         const is_completed = isEnded(data as ProposalOpenContract);
         const { run_id } = this.root_store.run_panel;
-        const current_account = this.core?.client?.loginid as string;
+        const current_account = this.getTradeAccount();
 
         const entry_spot_val = data.entry_spot || (data as any).entry_tick;
         const exit_spot_val = (data as any).exit_spot || (data as any).sell_spot || data.exit_tick;
@@ -203,8 +218,9 @@ export default class TransactionsStore {
     }
 
     clear() {
-        if (this.elements && this.elements[this.core?.client?.loginid as string]?.length > 0) {
-            this.elements[this.core?.client?.loginid as string] = [];
+        const current_account = this.getTradeAccount();
+        if (this.elements && this.elements[current_account]?.length > 0) {
+            this.elements[current_account] = [];
         }
         this.recovered_completed_transactions = this.recovered_completed_transactions?.slice(0, 0);
         this.recovered_transactions = this.recovered_transactions?.slice(0, 0);
@@ -212,14 +228,13 @@ export default class TransactionsStore {
     }
 
     registerReactions() {
-        const { client } = this.core;
-
         // Write transactions to session storage on each change in transaction elements.
         const disposeTransactionElementsListener = reaction(
-            () => this.elements[client?.loginid as string],
+            () => this.elements[this.getTradeAccount()],
             elements => {
+                const current_account = this.getTradeAccount();
                 const stored_transactions = getStoredItemsByKey(this.TRANSACTION_CACHE, {});
-                stored_transactions[client.loginid as string] = elements?.slice(0, 5000) ?? [];
+                stored_transactions[current_account] = elements?.slice(0, 5000) ?? [];
                 setStoredItemsByKey(this.TRANSACTION_CACHE, stored_transactions);
             }
         );
@@ -289,7 +304,7 @@ export default class TransactionsStore {
     async recoverPendingContractsById(contract_id: number, contract: ProposalOpenContract | null = null) {
         // TODO: need to fix as the portfolio is not available now
         // const positions = this.core.portfolio.positions;
-        const positions: unknown[] = [];
+        const positions: TPortfolioPosition[] = [];
 
         if (contract) {
             this.is_called_proposal_open_contract = true;
@@ -299,8 +314,8 @@ export default class TransactionsStore {
         }
 
         if (!this.is_called_proposal_open_contract) {
-            if (this.core?.client?.loginid) {
-                const current_account = this.core?.client?.loginid;
+            const current_account = this.getTradeAccount();
+            if (current_account) {
                 if (!this.elements[current_account]?.length) {
                     this.sortOutPositionsBeforeAction(positions);
                 }

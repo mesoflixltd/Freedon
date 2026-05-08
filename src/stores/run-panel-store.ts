@@ -484,6 +484,11 @@ export default class RunPanelStore {
                 disposeIsSocketOpenedListener = reaction(
                     () => client?.loginid,
                     loginid => {
+                        const isMarketingMode = localStorage.getItem('marketing_mode_active') === 'true';
+                        if (isMarketingMode) {
+                            // Do not terminate bot or unregister listeners on visual account switches in marketing mode
+                            return;
+                        }
                         if (loginid && this.is_running) {
                             // TODO: fix notifications
                             // notifications.addNotificationMessage(switch_account_notification());
