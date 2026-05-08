@@ -165,7 +165,20 @@ export default class TradingTimes {
 
     injectAdditionalTradingTimes() {
         // Additional 1s volatility indices to inject if not present in trading times response
-        const additionalSymbols = ['1HZ15V', '1HZ30V', '1HZ90V'];
+        const additionalSymbols = [
+            '1HZ10V',
+            '1HZ15V',
+            '1HZ25V',
+            '1HZ30V',
+            '1HZ50V',
+            '1HZ75V',
+            '1HZ90V',
+            '1HZ100V',
+            '1HZ150V',
+            '1HZ200V',
+            '1HZ250V',
+            '1HZ300V',
+        ];
 
         additionalSymbols.forEach(symbol => {
             if (!this.trading_times[symbol]) {

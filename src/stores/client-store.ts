@@ -128,7 +128,7 @@ export default class ClientStore {
 
     get active_accounts() {
         return this.accounts instanceof Object
-            ? Object.values(this.accounts).filter(account => !account.is_disabled)
+            ? Object.values(this.accounts).filter(account => !(account as any).is_disabled)
             : [];
     }
 
@@ -183,7 +183,7 @@ export default class ClientStore {
     get account_open_date() {
         if (isEmptyObject(this.accounts) || !this.accounts[this.loginid]) return undefined;
         return Object.keys(this.accounts[this.loginid]).includes('created_at')
-            ? this.accounts[this.loginid].created_at
+            ? (this.accounts[this.loginid] as any).created_at
             : undefined;
     }
 
