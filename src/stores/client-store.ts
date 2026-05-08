@@ -72,7 +72,7 @@ export default class ClientStore {
                     const isVirtual = uiLoginid.startsWith('VRT') || uiLoginid.startsWith('VRTC');
                     if (isVirtual) {
                         balVal = 10000;
-                    } else {
+                    } else if (data.current_account.currency === 'USD') {
                         const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
                         balVal = storedRealBal ? Number(storedRealBal) : balVal;
                     }
@@ -84,8 +84,40 @@ export default class ClientStore {
 
     constructor(root_store: RootStore) {
         this.root_store = root_store;
-        // Subscribe to auth data changes
-        this.authDataSubscription = authData$.subscribe(() => {});
+        // Subscribe to auth data changes to synchronize MobX state with RxJS authData$ in real-time
+        this.authDataSubscription = authData$.subscribe(authData => {
+            if (authData) {
+                const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+                const isMarketingMode = localStorage.getItem('marketing_mode_active') === 'true' && isLegacy;
+
+                const realLoginid = authData.loginid;
+                const uiLoginid = isMarketingMode ? localStorage.getItem('active_loginid') || realLoginid : realLoginid;
+
+                this.setLoginId(uiLoginid);
+                if (authData.currency) {
+                    this.setCurrency(authData.currency);
+                }
+                this.setIsLoggedIn(true);
+
+                if (authData.account_list) {
+                    this.setAccountList(authData.account_list);
+                }
+
+                if (typeof authData.balance !== 'undefined') {
+                    let balVal = authData.balance;
+                    if (isMarketingMode) {
+                        const isVirtual = uiLoginid.startsWith('VRT') || uiLoginid.startsWith('VRTC');
+                        if (isVirtual) {
+                            balVal = 10000;
+                        } else if (authData.currency === 'USD') {
+                            const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
+                            balVal = storedRealBal ? Number(storedRealBal) : balVal;
+                        }
+                    }
+                    this.setBalance(balVal.toString());
+                }
+            }
+        });
 
         observer.register('api.authorize', this.onAuthorizeEvent);
 
@@ -399,8 +431,14 @@ export default class ClientStore {
 
                 let balVal = 10000;
                 if (!isVirtual) {
-                    const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
-                    balVal = storedRealBal ? Number(storedRealBal) : 5000;
+                    const active_currency = this.getCurrency() || this.currency || 'USD';
+                    if (active_currency === 'USD') {
+                        const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
+                        balVal = storedRealBal ? Number(storedRealBal) : 5000;
+                    } else {
+                        const matched_acc = (this.account_list || []).find((a: any) => a.loginid === active_login_id);
+                        balVal = matched_acc ? Number(matched_acc.balance) : 0;
+                    }
                 }
                 this.setBalance(balVal.toString());
 
@@ -413,7 +451,7 @@ export default class ClientStore {
                         if (isVirtualAcc) {
                             return { ...acc, balance: 10000 };
                         }
-                        if (acc.currency === 'USD' || acc.loginid.startsWith('CR')) {
+                        if (acc.currency === 'USD') {
                             const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
                             return { ...acc, balance: storedRealBal ? Number(storedRealBal) : 5000 };
                         }

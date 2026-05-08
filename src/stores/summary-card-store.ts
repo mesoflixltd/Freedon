@@ -155,13 +155,20 @@ export default class SummaryCardStore {
     }
 
     onBotContractEvent(contract: TContractInfo) {
-        const { profit } = contract;
-        const indicative = getIndicativePrice(contract as ProposalOpenContract);
+        const contract_id = contract.contract_id || contract.id || (contract as any).contract_id;
+        const normalized_contract = {
+            ...contract,
+            id: contract_id,
+            contract_id,
+        };
+
+        const { profit } = normalized_contract;
+        const indicative = getIndicativePrice(normalized_contract as ProposalOpenContract);
         this.profit = profit;
 
-        if (this.contract_id !== contract.id) {
+        if (this.contract_id !== contract_id) {
             this.clear(false);
-            this.contract_id = contract.id;
+            this.contract_id = contract_id;
             this.indicative = indicative;
         }
 
@@ -183,12 +190,12 @@ export default class SummaryCardStore {
         });
 
         // TODO only add props that is being used
-        this.contract_info = contract;
+        this.contract_info = normalized_contract as any;
     }
 
     onChange({ name, value }: { name: TValidationRuleIndex; value: string | boolean }) {
-        this[name] = value;
-        this.validateProperty(name, value);
+        (this as any)[name] = value;
+        this.validateProperty(name, typeof value === 'string' ? value : undefined);
     }
 
     populateContractUpdateConfig(response: UpdateContractResponse) {
@@ -247,7 +254,7 @@ export default class SummaryCardStore {
                         contract_id: this.contract_info?.contract_id,
                         limit_order,
                     })
-                    .then(response => {
+                    .then((response: any) => {
                         // Update contract store
                         this.populateContractUpdateConfig(response);
                     })
@@ -265,13 +272,14 @@ export default class SummaryCardStore {
      * @param [{String}] messages - An array of strings that contains validation error messages for the particular property.
      *
      */
-    setValidationErrorMessages(propertyName: TValidationRuleIndex, messages: string) {
+    setValidationErrorMessages(propertyName: TValidationRuleIndex, messages: string | string[]) {
+        const errors = Array.isArray(messages) ? messages : [messages];
         const is_different = () =>
-            !!this.validation_errors[propertyName]
-                .filter(x => !messages.includes(x))
-                .concat(messages.filter(x => !this.validation_errors[propertyName].includes(x))).length;
-        if (!this.validation_errors[propertyName] || is_different()) {
-            this.validation_errors[propertyName] = messages;
+            !!(this.validation_errors as any)[propertyName]
+                ?.filter((x: any) => !errors.includes(x))
+                .concat(errors.filter((x: any) => !(this.validation_errors as any)[propertyName]?.includes(x))).length;
+        if (!(this.validation_errors as any)[propertyName] || is_different()) {
+            (this.validation_errors as any)[propertyName] = errors;
         }
     }
 
@@ -283,28 +291,29 @@ export default class SummaryCardStore {
      *
      */
     validateProperty(property: TValidationRuleIndex, value?: string) {
-        const trigger = this.validation_rules[property].trigger;
-        const inputs = { [property]: value !== undefined ? value : this[property] };
-        const validation_rules = { [property]: this.validation_rules[property].rules || [] };
+        const rule = (this.validation_rules as any)[property];
+        const trigger = rule?.trigger;
+        const inputs = { [property]: value !== undefined ? value : (this as any)[property] };
+        const validation_rules = { [property]: rule?.rules || [] };
 
         if (!!trigger && Object.hasOwnProperty.call(this, trigger)) {
-            inputs[trigger] = this[trigger];
-            validation_rules[trigger] = this.validation_rules[trigger].rules || [];
+            inputs[trigger] = (this as any)[trigger];
+            validation_rules[trigger] = (this.validation_rules as any)[trigger]?.rules || [];
         }
 
-        const validator = new Validator(inputs, validation_rules, this);
+        const validator = new Validator(inputs, validation_rules, this as any);
 
         validator.isPassed();
 
         Object.keys(inputs).forEach(key => {
-            this.setValidationErrorMessages(key, validator.errors.get(key));
+            this.setValidationErrorMessages(key as TValidationRuleIndex, validator.errors.get(key));
         });
     }
 
     registerReactions() {
-        const { client } = this.core;
+        const client = this.core?.client;
         this.disposeSwitchAcountListener = reaction(
-            () => client.loginid,
+            () => client?.loginid,
             () => this.clear()
         );
 

@@ -106,8 +106,20 @@ export default class TransactionsStore {
     };
 
     onBotContractEvent(data: TContractInfo) {
-        if (!data?.transaction_ids?.buy) return;
-        this.pushTransaction(data);
+        const buy_id = data?.transaction_ids?.buy || (data as any).transaction_id;
+        const contract_id = data?.contract_id || (data as any).id;
+        if (!buy_id && !contract_id) return;
+
+        // Normalize data to ensure transaction_ids is always populated for legacy UI components
+        const normalized_data: TContractInfo = {
+            ...data,
+            contract_id,
+            transaction_ids: data?.transaction_ids || {
+                buy: buy_id,
+                sell: data?.transaction_ids?.sell || (data as any).sell_transaction_id,
+            },
+        };
+        this.pushTransaction(normalized_data);
     }
 
     pushTransaction(data: TContractInfo) {
@@ -150,8 +162,10 @@ export default class TransactionsStore {
             if (typeof c.data === 'string') return false;
             return (
                 c.type === transaction_elements.CONTRACT &&
-                c.data?.transaction_ids &&
-                c.data.transaction_ids.buy === data.transaction_ids?.buy
+                (c.data?.contract_id === contract.contract_id ||
+                    (c.data?.transaction_ids &&
+                        contract.transaction_ids &&
+                        c.data.transaction_ids.buy === contract.transaction_ids.buy))
             );
         });
 

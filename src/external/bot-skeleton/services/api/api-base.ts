@@ -378,11 +378,7 @@ class APIBase {
                                                             if (isVirtual) {
                                                                 return { ...acc, balance: 10000 };
                                                             }
-                                                            if (
-                                                                acc.loginid === activeLogin ||
-                                                                acc.currency === 'USD' ||
-                                                                acc.loginid.startsWith('CR')
-                                                            ) {
+                                                            if (acc.currency === 'USD') {
                                                                 return { ...acc, balance: Number(nextRealBal) };
                                                             }
                                                             return acc;
@@ -420,7 +416,7 @@ class APIBase {
                                 const is_demo = data.loginid.startsWith('VRT') || data.loginid.startsWith('VRTC');
                                 if (is_demo) {
                                     data.balance = 10000;
-                                } else if (data.currency === 'USD' || data.loginid.startsWith('CR')) {
+                                } else if (data.currency === 'USD') {
                                     const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
                                     data.balance = storedRealBal ? Number(storedRealBal) : 5000;
                                 }
