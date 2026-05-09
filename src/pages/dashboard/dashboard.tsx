@@ -47,7 +47,7 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                         >
                             <div className='dashboard__social-links'>
                                 <a
-                                    href='https://wa.me/+254791253166'
+                                    href='https://wa.me/254793632071'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                     className='social-link social-link--whatsapp'
@@ -69,7 +69,7 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                                     </div>
                                 </a>
                                 <a
-                                    href='https://youtube.com'
+                                    href='https://youtube.com/@ceofredrick?si=wmrPPgyQae9xvf_3'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                     className='social-link social-link--youtube'
@@ -80,7 +80,7 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                                     </div>
                                 </a>
                                 <a
-                                    href='https://www.tiktok.com/@brian._fx?_r=1&_t=ZS-95r0BlOXqWj'
+                                    href='https://www.tiktok.com/@ceofredrickofficial?_r=1&_t=ZS-96CpnOe3LN7'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                     className='social-link social-link--tiktok'

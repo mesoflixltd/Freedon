@@ -1,10 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { localize } from '@deriv-com/translations';
 import './selection-page.scss';
 
 const SelectionPage = () => {
-    const navigate = useNavigate();
 
     const handleLegacyClick = async () => {
         try {
