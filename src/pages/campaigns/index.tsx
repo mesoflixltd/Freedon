@@ -168,11 +168,13 @@ const Campaigns = observer(() => {
                             <label className='booking-form__checkbox'>
                                 <input
                                     type='checkbox'
+                                    className='booking-form__checkbox-input'
                                     checked={bookingData.hasFunds}
                                     onChange={e => setBookingData({ ...bookingData, hasFunds: e.target.checked })}
                                     required
                                 />
-                                <span>
+                                <span className='booking-form__checkbox-box'></span>
+                                <span className='booking-form__checkbox-text'>
                                     {localize(
                                         'I confirm that I have a minimum of $100 and I am ready for a live trading session.'
                                     )}
