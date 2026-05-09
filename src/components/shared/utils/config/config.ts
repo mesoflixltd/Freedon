@@ -267,15 +267,21 @@ export const generateOAuthURL = async (prompt?: string) => {
             const currentOrigin = `${protocol}//${host}/`;
 
             // Prioritize the configured redirect URI, but fallback to current origin for staging/local
+            const hasConfiguredRedirect = !!(brandConfig as any).platform?.oauth_redirect_uri;
             let redirectUrl = (brandConfig as any).platform?.oauth_redirect_uri || currentOrigin;
 
             if (host.includes('localhost') || host.includes('netlify.app') || host.includes('vercel.app')) {
                 redirectUrl = currentOrigin;
+            } else if (hasConfiguredRedirect) {
+                // Respect the configured URL exactly
+                redirectUrl = (brandConfig as any).platform?.oauth_redirect_uri;
             }
 
-            // Ensure the redirect URI always ends with a trailing slash
-            if (!redirectUrl.endsWith('/')) {
-                redirectUrl = `${redirectUrl}/`;
+            // Ensure the redirect URI always ends with a trailing slash for fallbacks
+            if (!hasConfiguredRedirect || host.includes('localhost') || host.includes('netlify.app') || host.includes('vercel.app')) {
+                if (!redirectUrl.endsWith('/')) {
+                    redirectUrl = `${redirectUrl}/`;
+                }
             }
             const scopes = 'trade account_manage';
 

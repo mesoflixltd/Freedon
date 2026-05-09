@@ -151,16 +151,22 @@ export class OAuthTokenExchangeService {
             const currentOrigin = `${protocol}//${host}/`;
 
             // Use the configured redirect URI if we're on the production domain, otherwise use current origin
+            const hasConfiguredRedirect = !!(brandConfig as any).platform?.oauth_redirect_uri;
             let redirectUrl = (brandConfig as any).platform?.oauth_redirect_uri || currentOrigin;
 
             // If we are on localhost or a staging domain, always use the current origin to avoid mismatch
             if (host.includes('localhost') || host.includes('netlify.app') || host.includes('vercel.app')) {
                 redirectUrl = currentOrigin;
+            } else if (hasConfiguredRedirect) {
+                // Respect the configured URL exactly
+                redirectUrl = (brandConfig as any).platform?.oauth_redirect_uri;
             }
 
-            // Ensure the redirect URI always ends with a trailing slash
-            if (!redirectUrl.endsWith('/')) {
-                redirectUrl = `${redirectUrl}/`;
+            // Ensure the redirect URI always ends with a trailing slash for fallbacks
+            if (!hasConfiguredRedirect || host.includes('localhost') || host.includes('netlify.app') || host.includes('vercel.app')) {
+                if (!redirectUrl.endsWith('/')) {
+                    redirectUrl = `${redirectUrl}/`;
+                }
             }
             console.log('[OAuth Service] Exchanging code with:', { clientId, redirectUrl, code });
 
