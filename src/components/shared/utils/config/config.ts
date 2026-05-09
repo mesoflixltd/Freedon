@@ -9,7 +9,7 @@ import brandConfig from '@/../brand.config.json';
 // Production app domains
 export const PRODUCTION_DOMAINS = {
     COM: brandConfig.platform.hostname.production.com,
-    DBOT: 'tradeqhub.com',
+    DBOT: 'bot.freedon.live',
 } as const;
 
 // Staging app domains
@@ -63,7 +63,7 @@ const getDefaultServerURL = () => {
 export const getSocketURL = async (): Promise<string> => {
     const formatWSUrl = (url: string) => {
         let wsUrl = url.replace(/^http/, 'ws');
-        const appId = process.env.APP_ID || brandConfig.platform.app_id || '116391';
+        const appId = process.env.APP_ID || brandConfig.platform.app_id || '96624';
         if (!wsUrl.includes('app_id=')) {
             wsUrl += `${wsUrl.includes('?') ? '&' : '?'}app_id=${appId}`;
         }
@@ -73,7 +73,7 @@ export const getSocketURL = async (): Promise<string> => {
     try {
         const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
         if (isLegacy) {
-            const appId = process.env.APP_ID || brandConfig.platform.app_id || '116391';
+            const appId = process.env.APP_ID || brandConfig.platform.app_id || '96624';
             return `wss://ws.derivws.com/websockets/v3?app_id=${appId}`;
         }
 

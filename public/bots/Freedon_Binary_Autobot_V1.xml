@@ -20,7 +20,7 @@
       <block type="text_print" id="EDivDExvOQkw/~i;V+j8" collapsed="true">
         <value name="TEXT">
           <shadow type="text" id="kv+MPF!f)#C[?TCT^dS(">
-            <field name="TEXT">-TRADEQ BINARY  AUTOBOT  V.1-</field>
+            <field name="TEXT">-FREEDON BINARY  AUTOBOT  V.1-</field>
           </shadow>
         </value>
         <next>
@@ -117,7 +117,7 @@
                 <mutation items="2"></mutation>
                 <value name="ADD0">
                   <block type="text" id="ODDvC.!;oC7lFi#W0*kB">
-                    <field name="TEXT">PROFIT WON TRADEQ</field>
+                    <field name="TEXT">PROFIT WON FREEDON</field>
                   </block>
                 </value>
                 <value name="ADD1">
@@ -288,7 +288,7 @@
                         <mutation items="2"></mutation>
                         <value name="ADD0">
                           <block type="text" id="Gg@4VoMw!c3UbQ[:@PB.">
-                            <field name="TEXT">$$4Concluido! TRADEQ V.1 PROFIT TARGET ACHIEVED SUCCESS$&lt;&gt; : </field>
+                            <field name="TEXT">$$4Concluido! FREEDON V.1 PROFIT TARGET ACHIEVED SUCCESS$&lt;&gt; : </field>
                           </block>
                         </value>
                         <value name="ADD1">

@@ -1,11 +1,11 @@
 {
-    "brand_name": "TRADEQ",
-    "brand_domain": "tradeqhub.com",
+    "brand_name": "Freedon",
+    "brand_domain": "bot.freedon.live",
     "brand_hostname": {
-        "staging": "tradeqhub.com",
-        "production": "tradeqhub.com"
+        "staging": "bot.freedon.live",
+        "production": "bot.freedon.live"
     },
-    "domain_name": "tradeqhub.com",
+    "domain_name": "freedon.live",
     "main_branch": "master",
     "colors": {
         "primary": "#6366f1",
@@ -59,17 +59,17 @@
         "css_variable_prefix": "--brand"
     },
     "platform": {
-        "name": "TRADEQ",
-        "app_id": "116391",
-        "client_id": "337zPatJc8aj5yrYRCZWx",
-        "oauth_redirect_uri": "https://tradeqhub.com/",
+        "name": "Freedon Bot",
+        "app_id": "96624",
+        "client_id": "337vJBW9HcSbcs83ZFQIG",
+        "oauth_redirect_uri": "https://bot.freedon.live/",
         "logo": {
             "type": "component",
             "component_name": "BrandLogo",
-            "alt_text": "TRADEQ",
+            "alt_text": "Freedon Bot",
             "link_url": "/",
             "show_text": false,
-            "text": "TRADEQ"
+            "text": "Freedon Bot"
         },
         "footer": {
             "enable_language_settings": false,
@@ -77,10 +77,10 @@
         },
         "hostname": {
             "production": {
-                "com": "tradeqhub.com"
+                "com": "bot.freedon.live"
             },
             "staging": {
-                "com": "tradeqhub.com"
+                "com": "bot.freedon.live"
             }
         },
         "auth2_url": {

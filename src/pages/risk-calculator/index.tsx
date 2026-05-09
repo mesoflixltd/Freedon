@@ -61,7 +61,10 @@ const RiskCalculator = observer(() => {
 
     // ── Persist journal ────────────────────────────────────────────────────────
     useEffect(() => {
-        const saved = localStorage.getItem('tradq_trading_journal') || localStorage.getItem('mesoflix_trading_journal');
+        const saved =
+            localStorage.getItem('freedon_trading_journal') ||
+            localStorage.getItem('tradq_trading_journal') ||
+            localStorage.getItem('mesoflix_trading_journal');
         if (saved) {
             try {
                 setEntries(JSON.parse(saved));
@@ -72,7 +75,7 @@ const RiskCalculator = observer(() => {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('tradq_trading_journal', JSON.stringify(entries));
+        localStorage.setItem('freedon_trading_journal', JSON.stringify(entries));
     }, [entries]);
 
     // ── AI Engine calculations ─────────────────────────────────────────────────
@@ -1118,7 +1121,7 @@ const RiskCalculator = observer(() => {
             {/* Header */}
             <div className='risk-calculator-page__header'>
                 <div className='risk-calculator-page__header-title'>
-                    <Text as='h1'>TRADEQ Risk Tools</Text>
+                    <Text as='h1'>Freedon Risk Tools</Text>
 
                     <div className='risk-calculator-page__toggle'>
                         <button

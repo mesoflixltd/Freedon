@@ -48,7 +48,7 @@ const UltimateTraderPage = () => (
             <div className='aihub-feature-card aihub-feature-card--gold'>
                 <div className='aihub-feature-card__icon'>📡</div>
                 <h3>Live Strategy Feed</h3>
-                <p>Receive strategy updates from TRADEQ's AI model trained on millions of synthetic index ticks.</p>
+                <p>Receive strategy updates from Freedon's AI model trained on millions of synthetic index ticks.</p>
                 <div className='aihub-feature-card__status aihub-feature-card__status--pro'>Pro</div>
             </div>
             <div className='aihub-feature-card aihub-feature-card--gold'>
@@ -67,8 +67,8 @@ const UltimateTraderPage = () => (
                     launches.
                 </p>
             </div>
-            <a className='aihub-cta__btn' href='https://tradeqhub.com/' target='_blank' rel='noreferrer'>
-                Visit TRADEQ Site →
+            <a className='aihub-cta__btn' href='https://bot.freedon.live/' target='_blank' rel='noreferrer'>
+                Visit Freedon Site →
             </a>
         </div>
     </div>

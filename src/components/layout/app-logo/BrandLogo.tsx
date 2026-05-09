@@ -31,7 +31,7 @@ export const BrandLogo = ({
                 style={{
                     width: isMobile ? '30px' : '34px',
                     height: isMobile ? '30px' : '34px',
-                    background: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)', // Cyber neon blue/cyan gradient
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)', // Premium royal indigo/purple gradient
                     borderRadius: '8px',
                     display: 'flex',
                     alignItems: 'center',
@@ -39,14 +39,14 @@ export const BrandLogo = ({
                     color: '#ffffff',
                     fontSize: isMobile ? '16px' : '19px',
                     fontWeight: 900,
-                    boxShadow: '0 4px 12px rgba(79, 172, 254, 0.35)',
+                    boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)',
                     textShadow: '0 1px 2px rgba(0,0,0,0.15)',
                 }}
             >
-                Q
+                F
             </div>
             <span style={{ fontWeight: 900, letterSpacing: '-0.02em' }}>
-                TRADEQ
+                Freedon
             </span>
         </div>
     );

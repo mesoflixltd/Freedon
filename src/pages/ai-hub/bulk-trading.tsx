@@ -101,7 +101,7 @@ function useAuthWS() {
             try {
                 const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
                 const activeLoginid = localStorage.getItem('active_loginid');
-                const appId = process.env.APP_ID || '116391';
+                const appId = process.env.APP_ID || '96624';
 
                 if (isLegacy && activeLoginid) {
                     if (!cancelled) {
@@ -126,7 +126,7 @@ function useAuthWS() {
                 }
             } catch (e) {
                 if (!cancelled) {
-                    const appId = process.env.APP_ID || '116391';
+                    const appId = process.env.APP_ID || '96624';
                     setWsUrl(`wss://api.derivws.com/trading/v1/options/ws/public?app_id=${appId}`);
                     setStatus('unauthenticated');
                     setIsAuthenticated(false);
