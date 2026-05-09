@@ -45,9 +45,7 @@ export const BrandLogo = ({
             >
                 F
             </div>
-            <span style={{ fontWeight: 900, letterSpacing: '-0.02em' }}>
-                Freedon
-            </span>
+            <span style={{ fontWeight: 900, letterSpacing: '-0.02em' }}>Freedon</span>
         </div>
     );
 };

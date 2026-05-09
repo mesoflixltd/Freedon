@@ -144,12 +144,28 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-image: 
-                radial-gradient(circle, transparent 35%, rgba(0, 242, 254, 0.15) 36%, rgba(0, 242, 254, 0.15) 38%, transparent 39%),
-                radial-gradient(circle, transparent 65%, rgba(0, 242, 254, 0.1) 66%, rgba(0, 242, 254, 0.1) 68%, transparent 69%),
+            background-image:
+                radial-gradient(
+                    circle,
+                    transparent 35%,
+                    rgba(0, 242, 254, 0.15) 36%,
+                    rgba(0, 242, 254, 0.15) 38%,
+                    transparent 39%
+                ),
+                radial-gradient(
+                    circle,
+                    transparent 65%,
+                    rgba(0, 242, 254, 0.1) 66%,
+                    rgba(0, 242, 254, 0.1) 68%,
+                    transparent 69%
+                ),
                 linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 12px 12px, 12px 12px;
+            background-size:
+                100% 100%,
+                100% 100%,
+                12px 12px,
+                12px 12px;
             background-position: center;
             border-radius: 50%;
             z-index: 2;

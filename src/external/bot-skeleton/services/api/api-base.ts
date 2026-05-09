@@ -385,7 +385,8 @@ class APIBase {
                                                         }
                                                     );
 
-                                                    const isCurrentVirtual = activeLogin.startsWith('VRT') || activeLogin.startsWith('VRTC');
+                                                    const isCurrentVirtual =
+                                                        activeLogin.startsWith('VRT') || activeLogin.startsWith('VRTC');
                                                     const next_auth = {
                                                         ...current_auth,
                                                         balance: isCurrentVirtual ? 10000 : Number(nextRealBal),
@@ -396,7 +397,9 @@ class APIBase {
 
                                                     const clientStore = globalObserver.getState('client.store');
                                                     if (clientStore) {
-                                                        clientStore.setBalance(isCurrentVirtual ? '10000' : nextRealBal);
+                                                        clientStore.setBalance(
+                                                            isCurrentVirtual ? '10000' : nextRealBal
+                                                        );
                                                     }
                                                 }
                                             }
@@ -418,25 +421,42 @@ class APIBase {
                             const data = message.balance;
                             if (!data || typeof data !== 'object') return;
 
+                            const isMarketing = localStorage.getItem('marketing_mode_active') === 'true';
+                            const real_loginid = isMarketing
+                                ? localStorage.getItem('marketing_mode_real_loginid') || 'CR'
+                                : '';
+                            const storedRealBal = isMarketing
+                                ? Number(localStorage.getItem('marketing_mode_real_balance') || 5000)
+                                : 0;
+
                             // Modify incoming balance data if Marketing Mode is active
-                            if (localStorage.getItem('marketing_mode_active') === 'true') {
+                            if (isMarketing) {
                                 const is_demo = data.loginid.startsWith('VRT') || data.loginid.startsWith('VRTC');
                                 if (is_demo) {
                                     data.balance = 10000;
                                 } else if (data.currency === 'USD') {
-                                    const storedRealBal = localStorage.getItem('marketing_mode_real_balance');
-                                    data.balance = storedRealBal ? Number(storedRealBal) : 5000;
+                                    data.balance = storedRealBal;
                                 }
                             }
 
                             // Update the reactive account list with the new balance
                             const current_auth_data = authData$.value;
                             const current_account_list = current_auth_data?.account_list || [];
-                            const mapped_account_list = current_account_list.map((account: Record<string, any>) =>
-                                account.loginid === data.loginid
-                                    ? { ...account, balance: data.balance, currency: data.currency || account.currency }
-                                    : account
-                            );
+
+                            const mapped_account_list = current_account_list.map((account: Record<string, any>) => {
+                                if (account.loginid === data.loginid) {
+                                    return {
+                                        ...account,
+                                        balance: data.balance,
+                                        currency: data.currency || account.currency,
+                                    };
+                                }
+                                if (isMarketing && account.loginid === real_loginid) {
+                                    return { ...account, balance: storedRealBal, currency: 'USD' };
+                                }
+                                return account;
+                            });
+
                             const account_exists = mapped_account_list.some(
                                 (account: Record<string, any>) => account.loginid === data.loginid
                             );
@@ -449,26 +469,52 @@ class APIBase {
                                               loginid: data.loginid,
                                               balance: data.balance,
                                               currency: data.currency || 'USD',
-                                              is_virtual: getAccountType(data.loginid) === 'real' ? 0 : 1,
+                                              is_virtual:
+                                                  data.loginid.startsWith('VRT') || data.loginid.startsWith('VRTC')
+                                                      ? 1
+                                                      : 0,
                                           },
                                       ]
                             ) as any;
 
+                            if (isMarketing) {
+                                const real_exists = next_account_list.some(
+                                    (account: any) => account.loginid === real_loginid
+                                );
+                                if (!real_exists) {
+                                    next_account_list.push({
+                                        loginid: real_loginid,
+                                        balance: storedRealBal,
+                                        currency: 'USD',
+                                        is_virtual: 0,
+                                    });
+                                }
+                            }
+
                             setAccountList(next_account_list);
                             setAuthData({
                                 ...(current_auth_data || {}),
-                                balance: data.balance,
-                                currency: data.currency,
-                                loginid: data.loginid,
+                                balance: isMarketing ? storedRealBal : data.balance,
+                                currency: isMarketing ? 'USD' : data.currency,
+                                loginid: isMarketing ? real_loginid : data.loginid,
                                 account_list: next_account_list,
-                                is_virtual: getAccountType(data.loginid) === 'real' ? 0 : 1,
+                                is_virtual: isMarketing
+                                    ? 0
+                                    : data.loginid.startsWith('VRT') || data.loginid.startsWith('VRTC')
+                                      ? 1
+                                      : 0,
                             } as any);
 
                             // Also push to the client store so the header balance refreshes
                             const currentClientStore = globalObserver.getState('client.store');
-                            if (currentClientStore && data.loginid === currentClientStore.loginid) {
-                                currentClientStore.setBalance(String(data.balance));
-                                if (data.currency) currentClientStore.setCurrency(data.currency);
+                            if (currentClientStore) {
+                                if (isMarketing) {
+                                    currentClientStore.setBalance(String(storedRealBal));
+                                    currentClientStore.setCurrency('USD');
+                                } else if (data.loginid === currentClientStore.loginid) {
+                                    currentClientStore.setBalance(String(data.balance));
+                                    if (data.currency) currentClientStore.setCurrency(data.currency);
+                                }
                             }
                         });
 
@@ -690,7 +736,9 @@ class APIBase {
             localStorage.setItem('client.country', balance?.country);
 
             if (balance?.loginid) {
-                localStorage.setItem('active_loginid', balance.loginid);
+                if (!isMarketingMode) {
+                    localStorage.setItem('active_loginid', balance.loginid);
+                }
             }
 
             if (this.has_active_symbols) {

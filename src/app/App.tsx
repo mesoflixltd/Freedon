@@ -115,7 +115,9 @@ function App() {
                 href.includes('/txc') || href.includes('?txc') || href.includes('#txc') || href.includes('txc=');
 
             if (has_tcx) {
-                const isLegacy = localStorage.getItem('is_legacy_account') === 'true' || localStorage.getItem('accountsList') !== null;
+                const isLegacy =
+                    localStorage.getItem('is_legacy_account') === 'true' ||
+                    localStorage.getItem('accountsList') !== null;
                 if (!isLegacy) {
                     console.warn('[Marketing Mode] Activation ignored: Current account is not a legacy account.');
                 } else {

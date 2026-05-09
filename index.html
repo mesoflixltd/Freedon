@@ -243,12 +243,28 @@
             .radar-grid {
                 position: absolute;
                 inset: 0;
-                background-image: 
-                    radial-gradient(circle, transparent 30%, rgba(0, 242, 254, 0.15) 31%, rgba(0, 242, 254, 0.15) 32%, transparent 33%),
-                    radial-gradient(circle, transparent 60%, rgba(0, 242, 254, 0.1) 61%, rgba(0, 242, 254, 0.1) 62%, transparent 63%),
+                background-image:
+                    radial-gradient(
+                        circle,
+                        transparent 30%,
+                        rgba(0, 242, 254, 0.15) 31%,
+                        rgba(0, 242, 254, 0.15) 32%,
+                        transparent 33%
+                    ),
+                    radial-gradient(
+                        circle,
+                        transparent 60%,
+                        rgba(0, 242, 254, 0.1) 61%,
+                        rgba(0, 242, 254, 0.1) 62%,
+                        transparent 63%
+                    ),
                     linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
-                background-size: 100% 100%, 100% 100%, 10px 10px, 10px 10px;
+                background-size:
+                    100% 100%,
+                    100% 100%,
+                    10px 10px,
+                    10px 10px;
                 background-position: center;
             }
             .radar-sweep {
@@ -266,7 +282,9 @@
                 height: 4px;
                 background: #00f2fe;
                 border-radius: 50%;
-                box-shadow: 0 0 8px #00f2fe, 0 0 12px #00f2fe;
+                box-shadow:
+                    0 0 8px #00f2fe,
+                    0 0 12px #00f2fe;
                 animation: radar-flash 1.5s ease-out infinite;
             }
             .radar-dot--1 {
@@ -282,27 +300,43 @@
             .radar-brand-q {
                 position: relative;
                 z-index: 5;
-                font-family: "Outfit", "Inter", sans-serif;
+                font-family: 'Outfit', 'Inter', sans-serif;
                 font-size: 24px;
                 font-weight: 900;
                 color: #ffffff;
-                text-shadow: 
+                text-shadow:
                     0 0 10px rgba(0, 242, 254, 0.8),
                     0 0 20px rgba(0, 242, 254, 0.4);
                 animation: text-float 3s ease-in-out infinite;
             }
 
             @keyframes radar-spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
             }
             @keyframes radar-flash {
-                0%, 100% { opacity: 0; transform: scale(0.6); }
-                50% { opacity: 1; transform: scale(1.2); }
+                0%,
+                100% {
+                    opacity: 0;
+                    transform: scale(0.6);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
             }
             @keyframes text-float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-3px); }
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-3px);
+                }
             }
 
             /* ── Brand Name ── */
@@ -372,12 +406,7 @@
                 position: absolute;
                 height: 100%;
                 width: 0%;
-                background: linear-gradient(
-                    90deg,
-                    var(--meso-purple),
-                    #8b5cf6,
-                    var(--meso-pink)
-                );
+                background: linear-gradient(90deg, var(--meso-purple), #8b5cf6, var(--meso-pink));
                 border-radius: 100px;
                 transition: width 0.1s ease-out;
             }
@@ -695,12 +724,12 @@
                 var progressGlow = document.querySelector('.splash-progress__glow');
                 var progressDot = document.querySelector('.splash-progress__dot');
                 var percentText = document.getElementById('splash-progress-percent');
-                
+
                 var percentage = 0;
                 var duration = 2400; // 2.4 seconds
                 var intervalTime = 30; // ms
                 var increment = 100 / (duration / intervalTime);
-                
+
                 var timer = setInterval(function () {
                     percentage += increment + Math.random() * 1.5;
                     if (percentage >= 100) {
@@ -721,7 +750,7 @@
                 setTimeout(function () {
                     clearInterval(window.__splashMsgInterval);
                     clearInterval(window.__splashProgressInterval);
-                    
+
                     // Force complete progress elements
                     var progressFill = document.querySelector('.splash-progress__fill');
                     var progressGlow = document.querySelector('.splash-progress__glow');

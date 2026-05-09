@@ -5,7 +5,7 @@ import { ProposalOpenContract } from '@deriv/api-types';
 import { TPortfolioPosition, TStores } from '@deriv/stores/types';
 import { TContractInfo } from '../components/summary/summary-card.types';
 import { transaction_elements } from '../constants/transactions';
-import { getStoredItemsByKey, getStoredItemsByUser, setStoredItemsByKey } from '../utils/session-storage';
+import { getStoredItemsByKey, setStoredItemsByKey } from '../utils/session-storage';
 import RootStore from './root-store';
 
 type TTransaction = {
@@ -26,7 +26,7 @@ export default class TransactionsStore {
         this.root_store = root_store;
         this.core = core;
         this.is_transaction_details_modal_open = false;
-        this.elements = getStoredItemsByUser(this.TRANSACTION_CACHE, this.core?.client?.loginid, []);
+        this.elements = getStoredItemsByKey(this.TRANSACTION_CACHE, {});
         this.disposeReactionsFn = this.registerReactions();
 
         makeObservable(this, {

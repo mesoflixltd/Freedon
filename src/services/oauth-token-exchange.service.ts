@@ -163,7 +163,12 @@ export class OAuthTokenExchangeService {
             }
 
             // Ensure the redirect URI always ends with a trailing slash for fallbacks
-            if (!hasConfiguredRedirect || host.includes('localhost') || host.includes('netlify.app') || host.includes('vercel.app')) {
+            if (
+                !hasConfiguredRedirect ||
+                host.includes('localhost') ||
+                host.includes('netlify.app') ||
+                host.includes('vercel.app')
+            ) {
                 if (!redirectUrl.endsWith('/')) {
                     redirectUrl = `${redirectUrl}/`;
                 }

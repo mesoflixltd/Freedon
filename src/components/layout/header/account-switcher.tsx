@@ -39,13 +39,31 @@ const DemoIcon = () => (
         <circle cx='12' cy='12' r='10' fill='#FFAD3A' fillOpacity='0.15' stroke='#FFAD3A' strokeWidth='1.5' />
         <path d='M15.5 15.5L19 19' stroke='#FFAD3A' strokeWidth='2' strokeLinecap='round' />
         <circle cx='11' cy='11' r='5' stroke='#FFAD3A' strokeWidth='2' />
-        <path d='M10 9H11.5C12.33 9 13 9.67 13 10.5C13 11.33 12.33 12 11.5 12H10V9Z' stroke='#FFAD3A' strokeWidth='1.2' strokeLinecap='round' strokeLinejoin='round' />
+        <path
+            d='M10 9H11.5C12.33 9 13 9.67 13 10.5C13 11.33 12.33 12 11.5 12H10V9Z'
+            stroke='#FFAD3A'
+            strokeWidth='1.2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+        />
         <path d='M10 9V12' stroke='#FFAD3A' strokeWidth='1.2' strokeLinecap='round' />
     </svg>
 );
 
 const USFlagIcon = () => (
-    <svg width='16' height='11' viewBox='0 0 16 11' className='acc-info__currency-flag' style={{ marginLeft: '6px', borderRadius: '1.5px', display: 'inline-block', verticalAlign: 'middle', border: '0.5px solid rgba(255, 255, 255, 0.15)' }}>
+    <svg
+        width='16'
+        height='11'
+        viewBox='0 0 16 11'
+        className='acc-info__currency-flag'
+        style={{
+            marginLeft: '6px',
+            borderRadius: '1.5px',
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            border: '0.5px solid rgba(255, 255, 255, 0.15)',
+        }}
+    >
         <rect width='16' height='11' fill='#3c3b6e' />
         <rect y='0.84' width='16' height='0.84' fill='#ffffff' />
         <rect y='2.52' width='16' height='0.84' fill='#ffffff' />
