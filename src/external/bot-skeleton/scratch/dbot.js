@@ -57,6 +57,7 @@ class DBot {
                     if (!is_trade_type_accumulator) forgetAccumulatorsProposalRequest(that);
 
                     if (is_symbol_list_change) {
+                        that.is_updating_dropdowns = true;
                         contracts_for
                             ?.getTradeTypeCategories?.(market, submarket, symbol)
                             .then(categories => {
@@ -72,6 +73,11 @@ class DBot {
                             .catch(error => {
                                 // Error getting trade type categories
                                 console.error('Error fetching trade type categories:', error);
+                            })
+                            .finally(() => {
+                                setTimeout(() => {
+                                    that.is_updating_dropdowns = false;
+                                }, 500);
                             });
                         that.symbol = symbol;
                         if (
@@ -88,6 +94,7 @@ class DBot {
                             });
                         }
                     } else if (is_trade_type_cat_list_change && event.blockId === this.id) {
+                        that.is_updating_dropdowns = true;
                         contracts_for
                             ?.getTradeTypes?.(market, submarket, symbol, category)
                             .then(trade_types => {
@@ -103,6 +110,11 @@ class DBot {
                             .catch(error => {
                                 // Error getting trade types
                                 console.error('Error fetching trade types:', error);
+                            })
+                            .finally(() => {
+                                setTimeout(() => {
+                                    that.is_updating_dropdowns = false;
+                                }, 500);
                             });
                     }
                 }
@@ -286,6 +298,12 @@ class DBot {
      */
     runBot() {
         if (api_base.is_stopping) return;
+
+        if (this.is_updating_dropdowns) {
+            console.log('[DBot] Dropdowns are currently populating, deferring runBot...');
+            setTimeout(() => this.runBot(), 500);
+            return;
+        }
 
         try {
             api_base.is_stopping = false;

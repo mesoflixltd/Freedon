@@ -19,6 +19,8 @@ export const BrandLogo = ({
             style={{
                 display: 'flex',
                 alignItems: 'center',
+                width: width ? `${width}px` : undefined,
+                height: height ? `${height}px` : undefined,
                 gap: '10px',
                 fontWeight: 800,
                 fontSize: isMobile ? '20px' : '22px',

@@ -593,7 +593,7 @@ const AIScannerPage: React.FC = observer((): JSX.Element => {
             setTimeout(() => {
                 DBot.runBot();
                 navigate('/');
-            }, 500);
+            }, 2000);
         } catch (e: any) {
             console.error('Launch failed:', e);
         }
