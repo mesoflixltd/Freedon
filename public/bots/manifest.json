@@ -1,15 +1,5 @@
 [
     {
-        "id": "auto-c4-volt-ai-premium",
-        "name": "AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml",
-        "description": "High-frequency AI trading robot calibrated for rapid synthetic index volatility scalping.",
-        "category": "AI Neural Net",
-        "icon": "ai",
-        "status": "Premium",
-        "accuracy": 96,
-        "isPremium": true
-    },
-    {
         "id": "even-auto-bot-v2",
         "name": "EVEN AUTO BOT💹 V2.0.xml",
         "description": "Mathematical probability engine targeting continuous even-digit distribution runs.",
@@ -60,16 +50,6 @@
         "isPremium": true
     },
     {
-        "id": "the-binotek-5-2025",
-        "name": "THE BINOTEK 5 - 2025🥇.xml",
-        "description": "Legendary Binotek series protocol optimized for consistent, low-drawdown daily returns.",
-        "category": "Conservative",
-        "icon": "chart",
-        "status": "Classic",
-        "accuracy": 88,
-        "isPremium": false
-    },
-    {
         "id": "under-pro-market-analyzer",
         "name": "Under-Pro market analyzer✅ (1).xml",
         "description": "Precision algorithmic protocol optimized for micro-trend Under contract predictions.",
@@ -97,16 +77,6 @@
         "icon": "ai",
         "status": "Premium",
         "accuracy": 98,
-        "isPremium": true
-    },
-    {
-        "id": "rise-fall-apex-ai-bot",
-        "name": "💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml",
-        "description": "Optimized Rise/Fall contract specialist leveraging high-resolution tick-level signals.",
-        "category": "AI Neural Net",
-        "icon": "ai",
-        "status": "Trending",
-        "accuracy": 94,
         "isPremium": true
     }
 ]

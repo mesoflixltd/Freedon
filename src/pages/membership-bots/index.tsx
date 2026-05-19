@@ -209,7 +209,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
     const handleLoadBot = async (bot: BotModel) => {
         setLoadingBotId(bot.id);
         try {
-            const xmlPath = `/bots/${encodeURIComponent(bot.xmlFile)}`;
+            const xmlPath = `/membership-bots/${encodeURIComponent(bot.xmlFile)}`;
             const response = await fetch(xmlPath);
             if (!response.ok) throw new Error('Bot strategy XML payload not found');
 
