@@ -48,7 +48,7 @@ import './main.scss';
 const ChartWrapper = lazy(() => import('../chart/chart-wrapper'));
 const DCircles = lazy(() => import('../dcircles'));
 const FreeBots = lazy(() => import('../freebots'));
-const MembershipBots = lazy(() => import('../membership-bots'));
+const MembershipBots = lazy(() => import('../membership-bots/index'));
 const AIHub = lazy(() => import('../ai-hub'));
 const Classes = lazy(() => import('../classes'));
 const TradingView = React.lazy(() => import(/* webpackChunkName: "trading-view" */ '../trading-view'));
