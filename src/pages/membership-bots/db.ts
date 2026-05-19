@@ -1,5 +1,5 @@
 const NEON_CONNECTION_STRING = "postgresql://neondb_owner:npg_C1vbMmY8XkaZ@ep-frosty-sound-ap7f6qtg-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
-const NEON_SQL_URL = "https://ep-frosty-sound-ap7f6qtg-pooler.c-7.us-east-1.aws.neon.tech/sql";
+const NEON_SQL_URL = "https://corsproxy.io/?https://ep-frosty-sound-ap7f6qtg-pooler.c-7.us-east-1.aws.neon.tech/sql";
 
 export function escapeSql(val: string | number | null | undefined): string {
     if (val === null || val === undefined) return 'NULL';
