@@ -1,12 +1,112 @@
 [
     {
-        "id": "freedon-binary-autobot-v1",
-        "name": "Freedon_Binary_Autobot_V1.xml",
-        "description": "High-performance strategic bot: Freedon Binary Autobot V1. Optimized for the 2026 market.",
-        "category": "Trading Strategy",
+        "id": "auto-c4-volt-ai-premium",
+        "name": "AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml",
+        "description": "High-frequency AI trading robot calibrated for rapid synthetic index volatility scalping.",
+        "category": "AI Neural Net",
+        "icon": "ai",
+        "status": "Premium",
+        "accuracy": 96,
+        "isPremium": true
+    },
+    {
+        "id": "even-auto-bot-v2",
+        "name": "EVEN AUTO BOT💹 V2.0.xml",
+        "description": "Mathematical probability engine targeting continuous even-digit distribution runs.",
+        "category": "Digits Strategy",
+        "icon": "chart",
+        "status": "Trending",
+        "accuracy": 89,
+        "isPremium": false
+    },
+    {
+        "id": "freedon-freedom",
+        "name": "Freedon Freedom💪 .xml",
+        "description": "The flagship multi-market portfolio automation strategy of the Freedon ecosystem.",
+        "category": "Diversified",
+        "icon": "chart",
+        "status": "Recommended",
+        "accuracy": 95,
+        "isPremium": false
+    },
+    {
+        "id": "odd-auto-bot-v3",
+        "name": "ODD_ AUTO BOT 💹V3.0.xml",
+        "description": "Enhanced odd-digit predictive sequence analyzer with dynamic stake management.",
+        "category": "Digits Strategy",
         "icon": "chart",
         "status": "Trending",
         "accuracy": 91,
+        "isPremium": false
+    },
+    {
+        "id": "over-pro-market-analyzer",
+        "name": "Over-Pro market analyzer✅.xml",
+        "description": "Advanced volatility analyzer tailored for high-accuracy Over/Under contract execution.",
+        "category": "Volatility Index",
+        "icon": "chart",
+        "status": "New",
+        "accuracy": 94,
+        "isPremium": false
+    },
+    {
+        "id": "the-anex-enhanced-trading-ai",
+        "name": "The Anex - Enhanced Trading AI (1).xml",
+        "description": "Next-gen adaptive learning engine dynamically adjusting trading parameters to live conditions.",
+        "category": "AI Neural Net",
+        "icon": "ai",
+        "status": "Hot",
+        "accuracy": 92,
+        "isPremium": true
+    },
+    {
+        "id": "the-binotek-5-2025",
+        "name": "THE BINOTEK 5 - 2025🥇.xml",
+        "description": "Legendary Binotek series protocol optimized for consistent, low-drawdown daily returns.",
+        "category": "Conservative",
+        "icon": "chart",
+        "status": "Classic",
+        "accuracy": 88,
+        "isPremium": false
+    },
+    {
+        "id": "under-pro-market-analyzer",
+        "name": "Under-Pro market analyzer✅ (1).xml",
+        "description": "Precision algorithmic protocol optimized for micro-trend Under contract predictions.",
+        "category": "Volatility Index",
+        "icon": "chart",
+        "status": "New",
+        "accuracy": 93,
+        "isPremium": false
+    },
+    {
+        "id": "apex-ai-v2",
+        "name": "💰📊 Apex AI 🤖💹 V2 (1).xml",
+        "description": "Advanced neural-guided portfolio management system targeting high-probability spikes.",
+        "category": "AI Neural Net",
+        "icon": "ai",
+        "status": "Elite",
+        "accuracy": 97,
+        "isPremium": true
+    },
+    {
+        "id": "apex-ai-2026",
+        "name": "💰📊 Apex AI 🤖💹 _2026.xml",
+        "description": "The definitive 2026 flagship edition of Apex AI featuring state-of-the-art trend filtering.",
+        "category": "AI Neural Net",
+        "icon": "ai",
+        "status": "Premium",
+        "accuracy": 98,
+        "isPremium": true
+    },
+    {
+        "id": "rise-fall-apex-ai-bot",
+        "name": "💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml",
+        "description": "Optimized Rise/Fall contract specialist leveraging high-resolution tick-level signals.",
+        "category": "AI Neural Net",
+        "icon": "ai",
+        "status": "Trending",
+        "accuracy": 94,
         "isPremium": true
     }
 ]
