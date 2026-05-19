@@ -583,6 +583,15 @@ class APIBase {
     }
 
     async createNewInstance(account_id: string) {
+        const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+        const isMarketing = localStorage.getItem('marketing_mode_active') === 'true' && isLegacy;
+        if (isMarketing) {
+            const client_accounts = JSON.parse(localStorage.getItem('accountsList') || '{}');
+            const demo_loginid = Object.keys(client_accounts).find(id => id.startsWith('VRT') || id.startsWith('VRTC'));
+            if (demo_loginid && this.account_id === demo_loginid) {
+                return;
+            }
+        }
         if (this.account_id !== account_id) {
             await this.init();
         }
@@ -612,7 +621,19 @@ class APIBase {
     };
 
     async authorizeAndSubscribe() {
-        if (!this.api || (this.is_authorized && this.token === getAccountId())) return;
+        const isLegacy = localStorage.getItem('is_legacy_account') === 'true';
+        const isMarketingMode = localStorage.getItem('marketing_mode_active') === 'true' && isLegacy;
+        
+        let targetAccountId = getAccountId();
+        if (isMarketingMode) {
+            const client_accounts = JSON.parse(localStorage.getItem('accountsList') || '{}');
+            const demo_loginid = Object.keys(client_accounts).find(id => id.startsWith('VRT') || id.startsWith('VRTC'));
+            if (demo_loginid) {
+                targetAccountId = demo_loginid;
+            }
+        }
+
+        if (!this.api || (this.is_authorized && this.token === targetAccountId)) return;
 
         const { token, account_id } = getToken();
         if (!token) {

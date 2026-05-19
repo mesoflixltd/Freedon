@@ -48,6 +48,7 @@ import './main.scss';
 const ChartWrapper = lazy(() => import('../chart/chart-wrapper'));
 const DCircles = lazy(() => import('../dcircles'));
 const FreeBots = lazy(() => import('../freebots'));
+const MembershipBots = lazy(() => import('../membership-bots'));
 const AIHub = lazy(() => import('../ai-hub'));
 const Classes = lazy(() => import('../classes'));
 const TradingView = React.lazy(() => import(/* webpackChunkName: "trading-view" */ '../trading-view'));
@@ -93,6 +94,7 @@ const AppWrapper = observer(() => {
         'chart',
         'dcircles',
         'freebots',
+        'membership-bots',
         'ai-hub',
         'classes',
         'trading-view',
@@ -454,6 +456,25 @@ const AppWrapper = observer(() => {
                                     fallback={<ChunkLoader message={localize('Please wait, loading FreeBots...')} />}
                                 >
                                     <FreeBots />
+                                </Suspense>
+                            </div>
+                            <div
+                                label={
+                                    <>
+                                        <LabelPairedPuzzlePieceTwoCaptionBoldIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='Membership Bots' />
+                                    </>
+                                }
+                                id='id-membership-bots'
+                            >
+                                <Suspense
+                                    fallback={<ChunkLoader message={localize('Please wait, loading Membership Bots...')} />}
+                                >
+                                    <MembershipBots />
                                 </Suspense>
                             </div>
                             <div

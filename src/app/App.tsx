@@ -17,6 +17,7 @@ const Layout = lazy(() => import('../components/layout'));
 const AppRoot = lazy(() => import('./app-root'));
 const SelectionPage = lazy(() => import('../pages/selection/SelectionPage'));
 const Error404Page = lazy(() => import('../pages/error404/Error404Page'));
+const MembershipBots = lazy(() => import('../pages/membership-bots'));
 
 const SelectionGuard = ({ children }: { children: React.ReactNode }) => {
     // SelectionGuard is now effectively a placeholder as we conjoined the process
@@ -75,6 +76,43 @@ const router = createBrowserRouter(
                 {/* All child routes will be passed as children to Layout */}
                 <Route index element={<AppRoot />} />
             </Route>
+
+            <Route
+                path='/market/admin'
+                element={
+                    <Suspense fallback={<ChunkLoader message={localize('Loading Admin Portal...')} />}>
+                        <TranslationProvider defaultLang='EN' i18nInstance={i18nInstance}>
+                            <LanguageHandler>
+                                <StoreProvider>
+                                    <LocalStorageSyncWrapper>
+                                        <CoreStoreProvider>
+                                            <MembershipBots isAdminRoute={true} />
+                                        </CoreStoreProvider>
+                                    </LocalStorageSyncWrapper>
+                                </StoreProvider>
+                            </LanguageHandler>
+                        </TranslationProvider>
+                    </Suspense>
+                }
+            />
+            <Route
+                path='/market/admin/'
+                element={
+                    <Suspense fallback={<ChunkLoader message={localize('Loading Admin Portal...')} />}>
+                        <TranslationProvider defaultLang='EN' i18nInstance={i18nInstance}>
+                            <LanguageHandler>
+                                <StoreProvider>
+                                    <LocalStorageSyncWrapper>
+                                        <CoreStoreProvider>
+                                            <MembershipBots isAdminRoute={true} />
+                                        </CoreStoreProvider>
+                                    </LocalStorageSyncWrapper>
+                                </StoreProvider>
+                            </LanguageHandler>
+                        </TranslationProvider>
+                    </Suspense>
+                }
+            />
 
             <Route
                 path='*'

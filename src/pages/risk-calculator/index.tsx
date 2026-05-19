@@ -5,15 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import {
     LabelPairedChartMixedCaptionBoldIcon,
     LabelPairedMemoPadCaptionBoldIcon,
-    LabelPairedCirclePlusCaptionRegularIcon,
     LabelPairedTrashCaptionRegularIcon,
     LabelPairedPenCaptionRegularIcon,
-    LabelPairedCircleCheckCaptionRegularIcon,
     LabelPairedCircleExclamationCaptionRegularIcon,
 } from '@deriv/quill-icons/LabelPaired';
-import { Button, Text, useDevice } from '@deriv-com/ui';
-import InputField from '@/components/shared_ui/input-field';
-import { Localize, localize } from '@deriv-com/translations';
+import { Text } from '@deriv-com/ui';
+import { localize } from '@deriv-com/translations';
 import { useStore } from '@/hooks/useStore';
 import './risk-calculator.scss';
 
@@ -33,7 +30,6 @@ const MIN_STAKE = 0.35; // Deriv minimum stake
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 const RiskCalculator = observer(() => {
-    const { isDesktop } = useDevice();
     const { client } = useStore();
     const isAuthenticated = client.is_logged_in;
 
