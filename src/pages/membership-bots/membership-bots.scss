@@ -97,18 +97,20 @@
 }
 
 .bot-card--rental {
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 1) 100%);
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(28, 28, 28, 0.98) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.2);
     border-radius: 2.4rem;
-    padding: 2.8rem;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
     position: relative;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.6);
+    z-index: 1;
 
+    // Moving Background Conic Glow
     &::before {
         content: '';
         position: absolute;
@@ -116,34 +118,66 @@
         left: -50%;
         width: 200%;
         height: 200%;
-        background: conic-gradient(transparent, rgba(255, 215, 0, 0.05), transparent 30%);
-        animation: rotate 8s linear infinite;
+        background: conic-gradient(transparent, rgba(255, 215, 0, 0.08), transparent 30%);
+        animation: rotate 12s linear infinite;
         z-index: 0;
+        pointer-events: none;
+        opacity: 0.5;
+        transition: opacity 0.5s ease;
+    }
+
+    // High-Premium Slither Sheen (Sliding top-to-bottom on hover)
+    &::after {
+        content: '';
+        position: absolute;
+        top: -120%;
+        left: -20%;
+        width: 140%;
+        height: 100%;
+        background: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(255, 215, 0, 0.1) 20%,
+            rgba(255, 255, 255, 0.22) 50%,
+            rgba(255, 215, 0, 0.1) 80%,
+            transparent 100%
+        );
+        transform: rotate(-12deg);
+        transition: top 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
         pointer-events: none;
     }
 
     &:hover {
         border-color: #ffd700;
-        box-shadow: 0 0 3.5rem rgba(255, 215, 0, 0.25);
-        transform: translateY(-1.2rem) scale(1.01);
+        box-shadow: 0 0.5rem 4rem rgba(255, 215, 0, 0.2);
+        transform: translateY(-0.8rem);
+
+        &::before {
+            opacity: 0.9;
+        }
+
+        &::after {
+            top: 150%;
+        }
 
         .bot-card__icon-wrapper {
-            transform: rotate(12deg) scale(1.15);
+            transform: rotate(8deg) scale(1.1);
         }
     }
 
     &.bot-card--active-subscription {
         border-color: #00ffcc;
-        box-shadow: 0 0 3rem rgba(0, 255, 204, 0.25);
+        box-shadow: 0 0.5rem 4rem rgba(0, 255, 204, 0.2);
 
         &::before {
-            background: conic-gradient(transparent, rgba(0, 255, 204, 0.05), transparent 30%);
+            background: conic-gradient(transparent, rgba(0, 255, 204, 0.08), transparent 30%);
         }
 
         .bot-card__price {
             color: #00ffcc;
             border-color: rgba(0, 255, 204, 0.3);
-            background: rgba(0, 255, 204, 0.1);
+            background: rgba(0, 255, 204, 0.08);
             text-shadow: 0 0 1rem rgba(0, 255, 204, 0.3);
         }
 
@@ -157,16 +191,16 @@
 
     &.bot-card--pending-subscription {
         border-color: #ff9800;
-        box-shadow: 0 0 3rem rgba(255, 152, 0, 0.2);
+        box-shadow: 0 0.5rem 4rem rgba(255, 152, 0, 0.15);
 
         &::before {
-            background: conic-gradient(transparent, rgba(255, 152, 0, 0.05), transparent 30%);
+            background: conic-gradient(transparent, rgba(255, 152, 0, 0.08), transparent 30%);
         }
 
         .bot-card__price {
             color: #ff9800;
             border-color: rgba(255, 152, 0, 0.3);
-            background: rgba(255, 152, 0, 0.1);
+            background: rgba(255, 152, 0, 0.08);
         }
     }
 
@@ -177,40 +211,77 @@
         -webkit-text-fill-color: transparent;
         font-size: 2.2rem;
         font-weight: 800;
+        letter-spacing: -0.03rem;
     }
 
     .bot-card__icon-wrapper {
         background: linear-gradient(135deg, #ffd700, #ff8c00);
         color: black !important;
         box-shadow: 0 0 1.5rem rgba(255, 215, 0, 0.3);
+        z-index: 2;
     }
 
     .bot-card__price-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem;
-        background: rgba(255, 255, 255, 0.03);
-        padding: 1.2rem;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 1.6rem;
         border-radius: 1.6rem;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        z-index: 2;
 
         &-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.6rem;
 
             .duration-label {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 color: var(--text-less-prominent);
                 text-transform: uppercase;
-                font-weight: bold;
+                font-weight: 800;
+                letter-spacing: 0.05rem;
             }
 
             .price-val {
-                font-size: 1.5rem;
+                font-size: 1.7rem;
                 font-weight: 900;
                 color: #ffd700;
+                text-shadow: 0 0 0.8rem rgba(255, 215, 0, 0.2);
+            }
+        }
+    }
+
+    .bot-card__features {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.8rem;
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 1.6rem;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        margin: 0.8rem 0;
+        z-index: 2;
+
+        .bot-card__feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+
+            .feature-check-icon {
+                color: #ffd700;
+                font-size: 1.4rem;
+                font-weight: 900;
+                text-shadow: 0 0 0.8rem rgba(255, 215, 0, 0.4);
+            }
+
+            .feature-text {
+                font-size: 1.3rem;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 500;
+                line-height: 1.4;
             }
         }
     }
@@ -224,6 +295,7 @@
         padding: 1.6rem;
         border-radius: 1.6rem;
         align-items: center;
+        z-index: 2;
 
         .countdown-label {
             font-size: 1.1rem;
@@ -240,6 +312,11 @@
             font-family: monospace;
         }
     }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 // Subscription Modal Styles

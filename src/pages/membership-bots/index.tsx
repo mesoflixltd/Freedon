@@ -29,6 +29,7 @@ interface BotModel {
     };
     buyPrice: number;
     category: string;
+    features: string[];
 }
 
 const PREMIUM_BOTS: BotModel[] = [
@@ -36,34 +37,52 @@ const PREMIUM_BOTS: BotModel[] = [
         id: 'apex_ai_v2',
         name: 'Apex AI V2',
         description: 'Advanced deep-learning predictive neural bot with dynamic micro-stake recovery multipliers.',
-        accuracy: 99.4,
+        accuracy: 100,
         icon: 'ai',
         xmlFile: '💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml',
         prices: { daily: 15, weekly: 100, monthly: 400 },
         buyPrice: 1200,
         category: 'High-Frequency Neural Network',
+        features: [
+            'Deep Learning neural pattern scanner',
+            '1-Second high frequency execution',
+            'Dynamic recovery multiplier',
+            'Fully customizable risk configurations'
+        ]
     },
     {
         id: 'apex_ai_2026',
         name: 'Apex AI 2026',
         description: 'Latest institutional-grade market momentum scanner utilizing custom high-speed index triggers.',
-        accuracy: 98.7,
+        accuracy: 100,
         icon: 'chart',
         xmlFile: 'THE BINOTEK 5 - 2025🥇.xml',
         prices: { daily: 10, weekly: 75, monthly: 300 },
         buyPrice: 1000,
         category: 'Market Momentum Scanner',
+        features: [
+            'Institutional-grade momentum trigger',
+            'Fast Index contract filtering',
+            'Multi-run micro-stake stabilizer',
+            'Intelligent target stop loss'
+        ]
     },
     {
         id: 'anex_enhanced',
         name: 'Anex (Enhanced AI)',
         description: 'Super-stable and highly reliable statistical trend arbitrage algorithm with automated stop-loss.',
-        accuracy: 97.5,
+        accuracy: 100,
         icon: 'puzzle',
         xmlFile: 'AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml',
         prices: { daily: 7, weekly: 50, monthly: 200 },
         buyPrice: 900,
         category: 'Statistical Arbitrage',
+        features: [
+            'Trend arbitrage algorithm',
+            'Live market volatility adapter',
+            'Instant automated stop loss guard',
+            'Real-time capital protection'
+        ]
     },
 ];
 
@@ -429,11 +448,11 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                         </div>
                                     )}
 
-                                    {/* Accuracy Progress Bar */}
+                                    {/* Winrate Stats (100% Guaranteed) */}
                                     <div className='bot-card__stats'>
                                         <div className='bot-card__stat-header'>
                                             <Text size='xs' weight='bold' color='prominent'>
-                                                AI Accuracy Rate
+                                                Winrate
                                             </Text>
                                             <Text size='xs' weight='bold' style={{ color: '#ffd700' }}>
                                                 {bot.accuracy}%
@@ -445,6 +464,16 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                                 style={{ width: `${bot.accuracy}%` }} 
                                             />
                                         </div>
+                                    </div>
+
+                                    {/* Bot Exclusive Features Checklist */}
+                                    <div className='bot-card__features'>
+                                        {bot.features.map((feat, idx) => (
+                                            <div key={idx} className='bot-card__feature-item'>
+                                                <span className='feature-check-icon'>✓</span>
+                                                <span className='feature-text'>{feat}</span>
+                                            </div>
+                                        ))}
                                     </div>
 
                                     {/* Interactive Actions */}
