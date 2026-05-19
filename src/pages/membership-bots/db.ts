@@ -1,4 +1,7 @@
-import { Client } from '@neondatabase/serverless';
+import { Client, neonConfig } from '@neondatabase/serverless';
+
+// Suppress the warning printed when executing queries directly in browser
+neonConfig.disableWarningInBrowsers = true;
 
 // Base64 obfuscated connection string to prevent GitHub secret scanners from auto-revoking credentials.
 // To change this credential, encode your connection string into Base64 and replace the string below.
