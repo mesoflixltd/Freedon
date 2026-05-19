@@ -40,7 +40,7 @@ const PREMIUM_BOTS: BotModel[] = [
         accuracy: 100,
         icon: 'ai',
         xmlFile: '💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml',
-        prices: { daily: 15, weekly: 100, monthly: 400 },
+        prices: { daily: 60, weekly: 125, monthly: 400 },
         buyPrice: 1200,
         category: 'High-Frequency Neural Network',
         features: [
@@ -57,7 +57,7 @@ const PREMIUM_BOTS: BotModel[] = [
         accuracy: 97,
         icon: 'chart',
         xmlFile: 'THE BINOTEK 5 - 2025🥇.xml',
-        prices: { daily: 10, weekly: 75, monthly: 300 },
+        prices: { daily: 50, weekly: 100, monthly: 300 },
         buyPrice: 1000,
         category: 'Market Momentum Scanner',
         features: [
@@ -74,7 +74,7 @@ const PREMIUM_BOTS: BotModel[] = [
         accuracy: 95,
         icon: 'puzzle',
         xmlFile: 'AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml',
-        prices: { daily: 7, weekly: 50, monthly: 200 },
+        prices: { daily: 40, weekly: 75, monthly: 200 },
         buyPrice: 900,
         category: 'Statistical Arbitrage',
         features: [
