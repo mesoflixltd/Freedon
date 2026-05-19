@@ -40,16 +40,6 @@
         "isPremium": false
     },
     {
-        "id": "the-anex-enhanced-trading-ai",
-        "name": "The Anex - Enhanced Trading AI (1).xml",
-        "description": "Next-gen adaptive learning engine dynamically adjusting trading parameters to live conditions.",
-        "category": "AI Neural Net",
-        "icon": "ai",
-        "status": "Hot",
-        "accuracy": 92,
-        "isPremium": true
-    },
-    {
         "id": "under-pro-market-analyzer",
         "name": "Under-Pro market analyzer✅ (1).xml",
         "description": "Precision algorithmic protocol optimized for micro-trend Under contract predictions.",
@@ -58,25 +48,5 @@
         "status": "New",
         "accuracy": 93,
         "isPremium": false
-    },
-    {
-        "id": "apex-ai-v2",
-        "name": "💰📊 Apex AI 🤖💹 V2 (1).xml",
-        "description": "Advanced neural-guided portfolio management system targeting high-probability spikes.",
-        "category": "AI Neural Net",
-        "icon": "ai",
-        "status": "Elite",
-        "accuracy": 97,
-        "isPremium": true
-    },
-    {
-        "id": "apex-ai-2026",
-        "name": "💰📊 Apex AI 🤖💹 _2026.xml",
-        "description": "The definitive 2026 flagship edition of Apex AI featuring state-of-the-art trend filtering.",
-        "category": "AI Neural Net",
-        "icon": "ai",
-        "status": "Premium",
-        "accuracy": 98,
-        "isPremium": true
     }
 ]

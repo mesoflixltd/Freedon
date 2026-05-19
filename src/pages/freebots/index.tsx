@@ -71,9 +71,10 @@ const FreeBots = observer(() => {
     const filteredBots = useMemo(() => {
         return bots.filter(
             bot =>
-                bot.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                !bot.isPremium &&
+                (bot.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 bot.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                bot.category.toLowerCase().includes(searchTerm.toLowerCase())
+                bot.category.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     }, [bots, searchTerm]);
 

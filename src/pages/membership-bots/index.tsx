@@ -35,11 +35,11 @@ interface BotModel {
 const PREMIUM_BOTS: BotModel[] = [
     {
         id: 'apex_ai_v2',
-        name: 'Apex AI V2',
+        name: '💰📊 Apex AI 🤖💹 V2 (1)',
         description: 'Advanced deep-learning predictive neural bot with dynamic micro-stake recovery multipliers.',
         accuracy: 100,
         icon: 'ai',
-        xmlFile: '💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml',
+        xmlFile: '💰📊 Apex AI 🤖💹 V2 (1).xml',
         prices: { daily: 60, weekly: 125, monthly: 400 },
         buyPrice: 1200,
         category: 'High-Frequency Neural Network',
@@ -52,11 +52,11 @@ const PREMIUM_BOTS: BotModel[] = [
     },
     {
         id: 'apex_ai_2026',
-        name: 'Apex AI 2026',
+        name: '🚀 APEX AI 2026 BOT',
         description: 'Latest institutional-grade market momentum scanner utilizing custom high-speed index triggers.',
-        accuracy: 97,
+        accuracy: 98,
         icon: 'chart',
-        xmlFile: 'THE BINOTEK 5 - 2025🥇.xml',
+        xmlFile: '💰📊 Apex AI 🤖💹 _2026.xml',
         prices: { daily: 50, weekly: 100, monthly: 300 },
         buyPrice: 1000,
         category: 'Market Momentum Scanner',
@@ -69,11 +69,11 @@ const PREMIUM_BOTS: BotModel[] = [
     },
     {
         id: 'anex_enhanced',
-        name: 'Anex (Enhanced AI)',
+        name: '⚡ THE ANEX – Enhanced Trading AI',
         description: 'Super-stable and highly reliable statistical trend arbitrage algorithm with automated stop-loss.',
         accuracy: 95,
         icon: 'puzzle',
-        xmlFile: 'AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml',
+        xmlFile: 'The Anex - Enhanced Trading AI (1).xml',
         prices: { daily: 40, weekly: 75, monthly: 200 },
         buyPrice: 900,
         category: 'Statistical Arbitrage',
@@ -209,7 +209,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
     const handleLoadBot = async (bot: BotModel) => {
         setLoadingBotId(bot.id);
         try {
-            const xmlPath = `/membership-bots/${encodeURIComponent(bot.xmlFile)}`;
+            const xmlPath = `/bots/membership/${encodeURIComponent(bot.xmlFile)}`;
             const response = await fetch(xmlPath);
             if (!response.ok) throw new Error('Bot strategy XML payload not found');
 
