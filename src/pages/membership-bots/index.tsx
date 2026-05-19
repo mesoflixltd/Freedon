@@ -54,7 +54,7 @@ const PREMIUM_BOTS: BotModel[] = [
         id: 'apex_ai_2026',
         name: 'Apex AI 2026',
         description: 'Latest institutional-grade market momentum scanner utilizing custom high-speed index triggers.',
-        accuracy: 100,
+        accuracy: 97,
         icon: 'chart',
         xmlFile: 'THE BINOTEK 5 - 2025🥇.xml',
         prices: { daily: 10, weekly: 75, monthly: 300 },
@@ -71,7 +71,7 @@ const PREMIUM_BOTS: BotModel[] = [
         id: 'anex_enhanced',
         name: 'Anex (Enhanced AI)',
         description: 'Super-stable and highly reliable statistical trend arbitrage algorithm with automated stop-loss.',
-        accuracy: 100,
+        accuracy: 95,
         icon: 'puzzle',
         xmlFile: 'AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml',
         prices: { daily: 7, weekly: 50, monthly: 200 },
@@ -372,16 +372,18 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                             <Localize i18n_default_text='Rent premium high-frequency automated strategies and AI algorithms.' />
                         </Text>
                     </div>
-                    <button 
-                        className='membership-bots-page__admin-btn'
-                        onClick={() => {
-                            const isCurrentlyLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
-                            setIsAdminLoggedIn(isCurrentlyLoggedIn);
-                            setShowAdminPortal(!showAdminPortal);
-                        }}
-                    >
-                        {showAdminPortal ? 'Return to Portal' : 'Admin Sales Desk'}
-                    </button>
+                    {isAdminRoute && (
+                        <button 
+                            className='membership-bots-page__admin-btn'
+                            onClick={() => {
+                                const isCurrentlyLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
+                                setIsAdminLoggedIn(isCurrentlyLoggedIn);
+                                setShowAdminPortal(!showAdminPortal);
+                            }}
+                        >
+                            {showAdminPortal ? 'Return to Portal' : 'Admin Sales Desk'}
+                        </button>
+                    )}
                 </div>
             </div>
 

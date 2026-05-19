@@ -89,12 +89,12 @@ const AppWrapper = observer(() => {
     const init_render = React.useRef(true);
     const hash = [
         'campaigns',
+        'membership-bots',
         'dashboard',
         'bot_builder',
         'chart',
         'dcircles',
         'freebots',
-        'membership-bots',
         'ai-hub',
         'classes',
         'trading-view',
@@ -372,6 +372,25 @@ const AppWrapper = observer(() => {
                             <div
                                 label={
                                     <>
+                                        <LabelPairedPuzzlePieceTwoCaptionBoldIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='Membership Bots' />
+                                    </>
+                                }
+                                id='id-membership-bots'
+                            >
+                                <Suspense
+                                    fallback={<ChunkLoader message={localize('Please wait, loading Membership Bots...')} />}
+                                >
+                                    <MembershipBots />
+                                </Suspense>
+                            </div>
+                            <div
+                                label={
+                                    <>
                                         <LabelPairedObjectsColumnCaptionRegularIcon
                                             height='24px'
                                             width='24px'
@@ -456,25 +475,6 @@ const AppWrapper = observer(() => {
                                     fallback={<ChunkLoader message={localize('Please wait, loading FreeBots...')} />}
                                 >
                                     <FreeBots />
-                                </Suspense>
-                            </div>
-                            <div
-                                label={
-                                    <>
-                                        <LabelPairedPuzzlePieceTwoCaptionBoldIcon
-                                            height='24px'
-                                            width='24px'
-                                            fill='var(--text-general)'
-                                        />
-                                        <Localize i18n_default_text='Membership Bots' />
-                                    </>
-                                }
-                                id='id-membership-bots'
-                            >
-                                <Suspense
-                                    fallback={<ChunkLoader message={localize('Please wait, loading Membership Bots...')} />}
-                                >
-                                    <MembershipBots />
                                 </Suspense>
                             </div>
                             <div
