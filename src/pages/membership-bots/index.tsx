@@ -28,6 +28,7 @@ interface BotModel {
         monthly: number;
     };
     buyPrice: number;
+    buyPriceKsh: string;
     category: string;
     features: string[];
 }
@@ -42,6 +43,7 @@ const PREMIUM_BOTS: BotModel[] = [
         xmlFile: '💰📊 Apex AI 🤖💹 V2 (1).xml',
         prices: { daily: 60, weekly: 125, monthly: 400 },
         buyPrice: 1200,
+        buyPriceKsh: 'Ksh 155,000',
         category: 'High-Frequency Neural Network',
         features: [
             'Deep Learning neural pattern scanner',
@@ -59,6 +61,7 @@ const PREMIUM_BOTS: BotModel[] = [
         xmlFile: '💰📊 Apex AI 🤖💹 _2026.xml',
         prices: { daily: 50, weekly: 100, monthly: 300 },
         buyPrice: 1000,
+        buyPriceKsh: 'Ksh 129,000',
         category: 'Market Momentum Scanner',
         features: [
             'Institutional-grade momentum trigger',
@@ -76,6 +79,7 @@ const PREMIUM_BOTS: BotModel[] = [
         xmlFile: 'The Anex - Enhanced Trading AI (1).xml',
         prices: { daily: 40, weekly: 75, monthly: 200 },
         buyPrice: 900,
+        buyPriceKsh: 'Ksh 117,000',
         category: 'Statistical Arbitrage',
         features: [
             'Trend arbitrage algorithm',
@@ -98,7 +102,8 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
 
     // Rent Modal states
     const [selectedBot, setSelectedBot] = useState<BotModel | null>(null);
-    const [duration, setDuration] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
+    const [selectedMode, setSelectedMode] = useState<'rent' | 'purchase'>('rent');
+    const [duration, setDuration] = useState<'daily' | 'weekly' | 'monthly' | 'lifetime'>('monthly');
     const [senderPhone, setSenderPhone] = useState('');
     const [screenshotBase64, setScreenshotBase64] = useState<string>('');
     const [isSubmittingProof, setIsSubmittingProof] = useState(false);
@@ -244,7 +249,8 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
 
         setIsSubmittingProof(true);
         try {
-            const amt = selectedBot.prices[duration];
+            const amt = selectedMode === 'purchase' ? selectedBot.buyPrice : selectedBot.prices[duration as 'daily' | 'weekly' | 'monthly'];
+            const durationValue = selectedMode === 'purchase' ? 'lifetime' : duration;
             const sql = `
                 INSERT INTO rentals (
                     real_account_id, 
@@ -259,7 +265,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                     ${escapeSql(realAccountId)}, 
                     ${escapeSql(demoAccountId)}, 
                     ${escapeSql(selectedBot.name)}, 
-                    ${escapeSql(duration)}, 
+                    ${escapeSql(durationValue)}, 
                     ${escapeSql(amt)}, 
                     ${escapeSql(senderPhone)}, 
                     ${escapeSql(screenshotBase64)}, 
@@ -304,6 +310,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
             let intervalDays = 30; // Monthly default
             if (durationStr === 'daily') intervalDays = 1;
             else if (durationStr === 'weekly') intervalDays = 7;
+            else if (durationStr === 'lifetime' || durationStr === 'purchase') intervalDays = 36500;
 
             const sql = `
                 UPDATE rentals 
@@ -424,18 +431,24 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
 
                                     {/* Pricing Structure */}
                                     {status.state !== 'approved' && (
-                                        <div className='bot-card__price-grid'>
-                                            <div className='bot-card__price-grid-item'>
-                                                <span className='duration-label'>Daily</span>
-                                                <span className='price-val'>${bot.prices.daily}</span>
+                                        <div className='bot-card__pricing-section' style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                            <div className='bot-card__price-grid'>
+                                                <div className='bot-card__price-grid-item'>
+                                                    <span className='duration-label'>Daily Rent</span>
+                                                    <span className='price-val'>${bot.prices.daily}</span>
+                                                </div>
+                                                <div className='bot-card__price-grid-item'>
+                                                    <span className='duration-label'>Weekly Rent</span>
+                                                    <span className='price-val'>${bot.prices.weekly}</span>
+                                                </div>
+                                                <div className='bot-card__price-grid-item'>
+                                                    <span className='duration-label'>Monthly Rent</span>
+                                                    <span className='price-val'>${bot.prices.monthly}</span>
+                                                </div>
                                             </div>
-                                            <div className='bot-card__price-grid-item'>
-                                                <span className='duration-label'>Weekly</span>
-                                                <span className='price-val'>${bot.prices.weekly}</span>
-                                            </div>
-                                            <div className='bot-card__price-grid-item'>
-                                                <span className='duration-label'>Monthly</span>
-                                                <span className='price-val'>${bot.prices.monthly}</span>
+                                            <div className='bot-card__purchase-price' style={{ background: 'rgba(255,215,0,0.06)', border: '1px solid rgba(255,215,0,0.2)', borderRadius: '1.2rem', padding: '1rem 1.6rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#ccc' }}>Lifetime Purchase:</span>
+                                                <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#ffd700' }}>${bot.buyPrice} USD ({bot.buyPriceKsh})</span>
                                             </div>
                                         </div>
                                     )}
@@ -445,7 +458,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                         <div className='countdown-timer'>
                                             <span className='countdown-label'>Subscription Active</span>
                                             <span className='countdown-digits'>
-                                                {getCountdown(status.rental.expires_at)}
+                                                {status.rental.duration === 'lifetime' ? 'Lifetime Access ✅' : getCountdown(status.rental.expires_at)}
                                             </span>
                                         </div>
                                     )}
@@ -464,7 +477,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                             <div 
                                                 className='bot-card__progress-fill bot-card__progress-fill--premium' 
                                                 style={{ width: `${bot.accuracy}%` }} 
-                                            />
+                                             />
                                         </div>
                                     </div>
 
@@ -509,12 +522,30 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                                 Pending Admin Approval...
                                             </button>
                                         ) : (
-                                            <button
-                                                className='bot-card__load-btn bot-card__load-btn--premium'
-                                                onClick={() => setSelectedBot(bot)}
-                                            >
-                                                <span>Rent Bot Strategy</span>
-                                            </button>
+                                            <div className='bot-card__action-buttons' style={{ display: 'flex', gap: '0.8rem', width: '100%' }}>
+                                                <button
+                                                    className='bot-card__load-btn'
+                                                    style={{ flex: 1, padding: '1rem', fontSize: '1.2rem', background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer', borderRadius: '10rem' }}
+                                                    onClick={() => {
+                                                        setSelectedBot(bot);
+                                                        setSelectedMode('rent');
+                                                        setDuration('monthly');
+                                                    }}
+                                                >
+                                                    <span>Rent Bot</span>
+                                                </button>
+                                                <button
+                                                    className='bot-card__load-btn bot-card__load-btn--premium'
+                                                    style={{ flex: 1, padding: '1rem', fontSize: '1.2rem', cursor: 'pointer', borderRadius: '10rem' }}
+                                                    onClick={() => {
+                                                        setSelectedBot(bot);
+                                                        setSelectedMode('purchase');
+                                                        setDuration('lifetime');
+                                                    }}
+                                                >
+                                                    <span>Buy Bot</span>
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
@@ -650,7 +681,7 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                 <div className='payment-modal' onClick={() => setSelectedBot(null)}>
                     <div className='payment-modal__container' onClick={e => e.stopPropagation()}>
                         <div className='payment-modal__header'>
-                            <h2>Subscribe: {selectedBot.name}</h2>
+                            <h2>{selectedMode === 'purchase' ? 'Lifetime Purchase' : 'Rent Strategy'}: {selectedBot.name}</h2>
                             <button className='payment-modal__close' onClick={() => setSelectedBot(null)}>
                                 &times;
                             </button>
@@ -667,17 +698,24 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                             </div>
 
                             {/* Select duration */}
-                            <div className='payment-modal__field-group'>
-                                <label>Renting Subscription Period</label>
-                                <select 
-                                    value={duration} 
-                                    onChange={e => setDuration(e.target.value as any)}
-                                >
-                                    <option value='daily'>Daily - ${selectedBot.prices.daily}</option>
-                                    <option value='weekly'>Weekly - ${selectedBot.prices.weekly}</option>
-                                    <option value='monthly'>Monthly - ${selectedBot.prices.monthly}</option>
-                                </select>
-                            </div>
+                            {selectedMode === 'purchase' ? (
+                                <div className='payment-modal__field-group'>
+                                    <label>Transaction Plan</label>
+                                    <div className='extracted-id' style={{ textTransform: 'uppercase', color: '#ffd700', fontWeight: 'bold' }}>One-Time Lifetime Purchase</div>
+                                </div>
+                            ) : (
+                                <div className='payment-modal__field-group'>
+                                    <label>Renting Subscription Period</label>
+                                    <select 
+                                        value={duration} 
+                                        onChange={e => setDuration(e.target.value as any)}
+                                    >
+                                        <option value='daily'>Daily - ${selectedBot.prices.daily}</option>
+                                        <option value='weekly'>Weekly - ${selectedBot.prices.weekly}</option>
+                                        <option value='monthly'>Monthly - ${selectedBot.prices.monthly}</option>
+                                    </select>
+                                </div>
+                            )}
 
                             {/* Payment details */}
                             <div className='payment-modal__field-group' style={{ background: 'rgba(255, 215, 0, 0.05)', padding: '1.6rem', borderRadius: '1.6rem', border: '1px solid rgba(255, 215, 0, 0.2)' }}>
@@ -685,7 +723,15 @@ const MembershipBots = observer(({ isAdminRoute = false }: MembershipBotsProps) 
                                     Manual M-Pesa Payment Instructions:
                                 </Text>
                                 <Text size='sm' style={{ lineHeight: '1.6' }}>
-                                    Please send exactly <strong>${selectedBot.prices[duration]}</strong> to phone number: <strong style={{ color: '#ffd700', fontSize: '1.5rem' }}>+254794432921</strong>. Once completed, fill out the form below and upload your transaction receipt/screenshot proof.
+                                    {selectedMode === 'purchase' ? (
+                                        <>
+                                            Please send exactly <strong style={{ color: '#ffd700', fontSize: '1.5rem' }}>${selectedBot.buyPrice} USD ({selectedBot.buyPriceKsh})</strong> to phone number: <strong style={{ color: '#ffd700', fontSize: '1.5rem' }}>+254794432921</strong>. Once completed, fill out the form below and upload your transaction receipt/screenshot proof.
+                                        </>
+                                    ) : (
+                                        <>
+                                            Please send exactly <strong>${selectedBot.prices[duration as 'daily' | 'weekly' | 'monthly']}</strong> to phone number: <strong style={{ color: '#ffd700', fontSize: '1.5rem' }}>+254794432921</strong>. Once completed, fill out the form below and upload your transaction receipt/screenshot proof.
+                                        </>
+                                    )}
                                 </Text>
                             </div>
 
