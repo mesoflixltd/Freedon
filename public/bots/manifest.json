@@ -1,5 +1,15 @@
 [
     {
+        "id": "auto-c4-volt-ai-premium",
+        "name": "AUTO C4 VOLT 🇬🇧 2 🇬🇧 AI PREMIUM ROBOT 💯.xml",
+        "description": "Premium institutional-grade volatility index scanner designed for maximum trend captures.",
+        "category": "Volatility Index",
+        "icon": "ai",
+        "status": "Trending",
+        "accuracy": 96,
+        "isPremium": false
+    },
+    {
         "id": "even-auto-bot-v2",
         "name": "EVEN AUTO BOT💹 V2.0.xml",
         "description": "Mathematical probability engine targeting continuous even-digit distribution runs.",
@@ -40,6 +50,16 @@
         "isPremium": false
     },
     {
+        "id": "the-binotek-5-2025",
+        "name": "THE BINOTEK 5 - 2025🥇.xml",
+        "description": "Advanced multi-run probability engine targeting continuous micro-stake distributions.",
+        "category": "Digits Strategy",
+        "icon": "chart",
+        "status": "Recommended",
+        "accuracy": 94,
+        "isPremium": false
+    },
+    {
         "id": "under-pro-market-analyzer",
         "name": "Under-Pro market analyzer✅ (1).xml",
         "description": "Precision algorithmic protocol optimized for micro-trend Under contract predictions.",
@@ -47,6 +67,16 @@
         "icon": "chart",
         "status": "New",
         "accuracy": 93,
+        "isPremium": false
+    },
+    {
+        "id": "rise-fall-apex-ai-bot",
+        "name": "💰📊 Rise _ Fall Apex AI Bot 🤖💹.xml",
+        "description": "Deep-learning neural model optimized for momentum-based Rise/Fall execution.",
+        "category": "Rise/Fall Automation",
+        "icon": "ai",
+        "status": "New",
+        "accuracy": 97,
         "isPremium": false
     }
 ]
